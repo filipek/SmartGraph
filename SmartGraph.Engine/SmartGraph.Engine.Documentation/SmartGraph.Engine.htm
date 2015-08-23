@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<title></title>
+		<meta name="GENERATOR" content="Microsoft Visual Studio .NET 7.1">
+		<meta name="ProgId" content="VisualStudio.HTML">
+		<meta name="Originator" content="Microsoft Visual Studio .NET 7.1">
+	</head>
+	<body>
+		<h1 align="center">SmartGraph.Engine An implementation of a dependency graph 
+			manager.</h1>
+		<hr>
+		<P>Contents</P>
+		<OL>
+			<LI>
+				<a href="#Introduction">Introduction</a>
+			<LI>
+				<a href="#The Engine implemenation">The Engine implemenation</a>
+			<li>
+				<a href="#How to use?">How to use?</a></li>
+		</OL>
+		<hr>
+		<H2><a id="Introduction">Introduction</a></H2>
+		<p>The SmartGraph.Engine library contains classes for building and managing 
+			Directed Acyclic Graphs (or <a href="SmartGraph.Dag.htm">DAG</a>s).</p>
+		<P></P>
+		<H2><a id="#The Engine implemenation">The Engine implemenation</a></H2>
+		<p>A dependency engine is an active task which is bound to a <a href="SmartGraph.Dag.htm">
+				DAG</a> graph. The engine is an event handler. The event handling policy 
+			determines how 'dirty node' events are handled. The scheduling policy 
+			determines in what order (if at all) dirty nodes (corresponding to the graph's 
+			vertices) should be updated. Once a node has been updated if its state (or 
+			value) has changed the engine can publish a 'clean node' event.</p>
+		<p>The design of the engine is similar to a pipeline of processing. The various 
+			engine policies are connected with queues. Dirty nodes are queued for the 
+			scheduler. The scheduler queues a list of nodes for the calculation policy. The 
+			calculation policy queues clean nodes for the publisher which raises clean node 
+			events.</p>
+		<p>Node types:</p>
+		<UL>
+			<li>
+			INode - a basic node which does not raise the dirty node event. A node will be 
+			updated.
+			<li>
+				IActiveNode - not just a basic node. Active nodes can raise the dirty node 
+				event. They are not updated.</li></UL>
+		<P>The InvariantNodeAttribute can be used on nodes to make sure they will not be 
+			updated. These nodes do not raise the dirty node event. Use this attribute to 
+			optimize graph updates.</P>
+		<H2><a id="How to use?">How to use?</a></H2>
+		<p>Some suggestions for when to use a SmartGraph.Engine follow.</p>
+		<H3>Scheduling</H3>
+		<P>A simple graph can model a set of tasks which must be performed in certain order 
+			(remember -&nbsp;no cycles in the DAG). It defines a sequential flow of control 
+			acting on the nodes. A simple application of the engine is to create&nbsp;tasks 
+			which must be performed periodically.</P>
+		<P>The <A href="../tests/data/TickingHelloWorld.xml">TickingHelloWorld</A> sample 
+			shows how to set-up a graph and an engine to perform a string concatenation on 
+			3 nodes:</P>
+		<OL>
+			<LI>
+			a value node holding the string "hello"
+			<LI>
+			a value node holding the string "world"
+			<LI>
+				the current time, as given by a Ticker node which raises an event with a 
+				configurable frequency (sample's freq=1sec). Its output value is DateTime.Now.</LI></OL>
+		<P>
+			The graph can be foung in <a href="../tests/data/TickingHelloWorld.xml">TickingHelloWorld.xml</a>. 
+			The following is a drawing of it:</P>
+		<P><img border="0" src="TickingHelloWorld.png"></P>
+		<P>The concatenated value is available after the publisher raises the clean node 
+			event from the Concat node.</P>
+		<P>To load the engine you need the following code:</P>
+		<P><img border="0" src="TickingHelloWorldEngine.png"></P>
+	</body>
+</html>
