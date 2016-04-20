@@ -27,22 +27,16 @@ namespace SmartGraph.Engine.RandomGraphGenerator.Formats
         {
             Guard.AssertNotNullOrEmpty(format, "format");
 
-            IGraphFormatWriter writer;
-
             switch (format)
             {
                 case "dot":
-                    writer = new DotFormatWriter();
-                    break;
+                    return new DotFormatWriter();
                 case "enginexml":
-                    writer = new EngineXmlFormatWriter();
-                    break;
+                    return new EngineXmlFormatWriter();
                 default:
                     throw new InvalidOperationException(
                         String.Format("Unknown graph format '{0}'", format));
             }
-
-            return writer;
         }
     }
 }

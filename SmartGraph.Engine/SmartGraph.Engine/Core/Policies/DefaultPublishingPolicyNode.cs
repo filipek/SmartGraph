@@ -34,7 +34,7 @@ using System;
 
 namespace SmartGraph.Engine.Core.Policies
 {
-    public class DefaultPublishingPolicyNode : SimpleAsyncProducerNodeBase<IEngineTask>, IPublishingPipelineNode
+    public sealed class DefaultPublishingPolicyNode : SimpleAsyncProducerNodeBase<IEngineTask>, IPublishingPipelineNode
     {
         private IEngine engine;
 

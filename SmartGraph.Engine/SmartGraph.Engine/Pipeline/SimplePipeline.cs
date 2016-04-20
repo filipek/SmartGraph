@@ -24,7 +24,6 @@ using System.Linq;
 
 namespace SmartGraph.Engine.Pipeline
 {
-
     public class SimplePipeline<T> : SimplePipelineComponentBase<T>, IPipeline<T>
 	{
         protected IPipelineModule<T> Head

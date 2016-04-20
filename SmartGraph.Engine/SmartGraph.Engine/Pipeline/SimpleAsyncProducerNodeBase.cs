@@ -30,38 +30,40 @@ namespace SmartGraph.Engine.Pipeline
 
         private void ThreadFunc()
         {
-            try
+            do
             {
-                while (true)
+                // Consume message
+                var message = default(T);
+
+                try
                 {
-                    // Consume message
-                    var message = MessageBus.Consume();
-
-                    // Produce
-                    try
-                    {
-                        InternalProduce(message);
-                    }
-                    catch (Exception e)
-                    {
-                        Diagnostics.DebugException(e, "Processing");
-                    }
-
-                    // SendNext
-                    try
-                    {
-                        SendNext(message);
-                    }
-                    catch (Exception e)
-                    {
-                        Diagnostics.DebugException(e, "Doing a SendNext");
-                    }
+                    message = MessageBus.Consume();
                 }
-            }
-            catch (Exception e)
-            {
-                Diagnostics.DebugException(e, "Doing a bus Consume");
-            }
+                catch (Exception e)
+                {
+                    Diagnostics.DebugException(e, "Doing a bus Consume");
+                }
+
+                // Produce
+                try
+                {
+                    InternalProduce(message);
+                }
+                catch (Exception e)
+                {
+                    Diagnostics.DebugException(e, "Processing");
+                }
+
+                // SendNext
+                try
+                {
+                    SendNext(message);
+                }
+                catch (Exception e)
+                {
+                    Diagnostics.DebugException(e, "Doing a SendNext");
+                }
+            } while (true);
         }
 
         protected IMessageBus<T> MessageBus { get; private set; }

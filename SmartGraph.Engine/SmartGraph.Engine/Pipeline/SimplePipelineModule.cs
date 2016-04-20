@@ -23,8 +23,8 @@ namespace SmartGraph.Engine.Pipeline
 {
     public class SimplePipelineModule<T> : SimplePipelineComponentBase<T>, IPipelineModule<T>
     {
-        protected IPipelineNode<T> consumer;
-        protected IPipelineNode<T> producer;
+        protected readonly IPipelineNode<T> consumer;
+        protected readonly IPipelineNode<T> producer;
 
         public SimplePipelineModule(String name, IPipelineNode<T> consumer, IPipelineNode<T> producer)
             : base(name)

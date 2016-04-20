@@ -78,7 +78,7 @@ namespace SmartGraph.Engine.Nodes
             nodeHost.MarkNodeAsDirty();
         }
 
-        public override void Update()
+        public sealed override void Update()
         {
             throw new InvalidOperationException("IActiveNodes cannot be updated");
         }

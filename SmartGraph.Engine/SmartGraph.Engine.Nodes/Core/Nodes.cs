@@ -29,7 +29,7 @@ namespace SmartGraph.Engine.Nodes.Core
 	[Serializable]
 	[InvariantNode]
 	[XmlRoot(Namespace="urn:smartgraph:engine:nodes", IsNullable = false)]
-	public class ConstValue : NodeBase
+	public sealed class ConstValue : NodeBase
 	{
         private const String output = "Value";
 
@@ -75,7 +75,7 @@ namespace SmartGraph.Engine.Nodes.Core
 
     [Serializable]
     [XmlRoot(Namespace = "urn:smartgraph:engine:nodes", IsNullable = false)]
-    public class SumOfInputs : NodeBase
+    public sealed class SumOfInputs : NodeBase
     {
         private const String output = "Value";
 
@@ -94,7 +94,7 @@ namespace SmartGraph.Engine.Nodes.Core
 
     [Serializable]
     [XmlRoot(Namespace = "urn:smartgraph:engine:nodes", IsNullable = false)]
-    public class RandomValue : NodeBase
+    public sealed class RandomValue : NodeBase
     {
         private const String output = "Value";
 
@@ -117,7 +117,7 @@ namespace SmartGraph.Engine.Nodes.Core
 
 	[Serializable]
     [XmlRoot(Namespace = "urn:smartgraph:engine:nodes", IsNullable = false)]
-	public class Ticker : ActiveNodeBase
+	public sealed class Ticker : ActiveNodeBase
 	{
         private const String output = "Ticker";
 
@@ -186,7 +186,7 @@ namespace SmartGraph.Engine.Nodes.Core
 
     [Serializable]
     [XmlRoot(Namespace = "urn:smartgraph:engine:nodes", IsNullable = false)]
-    public class RandomSleeper : NodeBase
+    public sealed class RandomSleeper : NodeBase
     {
         private const String output = "Value";
 
@@ -208,7 +208,7 @@ namespace SmartGraph.Engine.Nodes.Core
 
     [Serializable]
     [XmlRoot(Namespace = "urn:smartgraph:engine:nodes", IsNullable = false)]
-    public class SleepJob : NodeBase
+    public sealed class SleepJob : NodeBase
     {
         private const String output = "Value";
 

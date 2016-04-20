@@ -58,4 +58,14 @@ public static class Extensions
         var r = random.Next();
         return min + r % (max - min + 1);
     }
+
+    public static bool None<T>(this IEnumerable<T> list)
+    {
+        return !list.Any();
+    }
+
+    public static bool None<T>(this IEnumerable<T> list, Func<T, bool> predicate)
+    {
+        return !list.Any(predicate);
+    }
 }

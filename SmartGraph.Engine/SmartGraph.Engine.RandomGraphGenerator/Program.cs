@@ -42,12 +42,12 @@ namespace SmartGraph.Engine.RandomGraphGenerator
                     }
                 }
 
-                var formatWriter = GraphFormatWriterFactory.Create(cmdLine.Format);
-
                 var graphGenerator = new EngineRandomGraphGenerator();
                 var randomGraph = graphGenerator.Generate(Guid.NewGuid().ToString());
 
-                var writer = (isConsoleOutput ? Console.Out : File.CreateText(fileName));
+                var writer = isConsoleOutput ? Console.Out : File.CreateText(fileName);
+                var formatWriter = GraphFormatWriterFactory.Create(cmdLine.Format);
+
                 formatWriter.Write(randomGraph, writer);
             }
             catch (Exception ex)

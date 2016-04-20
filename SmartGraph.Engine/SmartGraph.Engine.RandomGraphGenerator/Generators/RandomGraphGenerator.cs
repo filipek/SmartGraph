@@ -80,9 +80,7 @@ namespace SmartGraph.Engine.RandomGraphGenerator.Generators
             Action<int> onCreateVertex)
         {
             var random = new Random();
-
             int ranks = random.NextBetween(MinRank, MaxRank);
-
             int nodeCount = 0;
 
             if (onStartGraph != null)

@@ -85,7 +85,7 @@ namespace SmartGraph.Engine.RandomGraphGenerator.Formats
 
                         xmlWriter.WriteEndElement(); // obj
                     }
-                    else if (!v.OutEdges.Any()) // publisher
+                    else if (v.OutEdges.None()) // publisher
                     {
                         xmlWriter.WriteAttributeString("name", String.Format("node-{0}-publisher", v.Name));
 
@@ -101,7 +101,7 @@ namespace SmartGraph.Engine.RandomGraphGenerator.Formats
 
                         xmlWriter.WriteEndElement(); // obj
                     }
-                    else if (!v.InEdges.Any()) // active node
+                    else if (v.InEdges.None()) // active node
                     {
                         xmlWriter.WriteAttributeString("name", String.Format("node-{0}", v.Name));
 

@@ -34,31 +34,36 @@ namespace SmartGraph.Engine.RandomGraphGenerator.Generators
 
         public IGraph Generate(String graphName)
         {
-            DagGraph graph = new DagGraph(graphName);
+            var graph = new DagGraph(graphName);
+            var vertices = graph.Vertices.ToArray();
 
             Action endGraph = () =>
             {
-                foreach (var v in graph.Vertices.ToArray())
+                foreach (var v in vertices)
                 {
-                    if (!v.InEdges.Any() && !v.OutEdges.Any())
+                    var hasInEdges = v.InEdges.None();
+                    var hasOutEdges = v.OutEdges.None();
+
+                    if (hasInEdges && hasOutEdges)
                     {
                         graph.Vertices.Remove(v);
                         Console.WriteLine("Removed disconnected node: {0}", v.Name);
                     }
-                    else if (!v.InEdges.Any())
+                    else if (hasInEdges)
                     {
                         Console.WriteLine("Active node: {0}", v.Name);
                     }
-                    else if (!v.OutEdges.Any())
+                    else if (hasOutEdges)
                     {
                         Console.WriteLine("Publisher node: {0}", v.Name);
                     }
                 }
             };
 
-            Action<int> createNode = (n) => graph.Vertices.Add(new Vertex(graph, n.ToString()));
-            Action<int, int> createEdge = (s, t) => graph.Edges.Add(
-                new Edge(graph, String.Format("{0}-{1}", s, t), s.ToString(), t.ToString()));
+            Action<int> createNode =
+                v => graph.Vertices.Add(new Vertex(graph, v.ToString()));
+            Action<int, int> createEdge =
+                (s, t) => graph.Edges.Add(new Edge(graph, String.Format("{0}-{1}", s, t), s.ToString(), t.ToString()));
 
             generator.Generate(null, endGraph, createEdge, createNode);
 
