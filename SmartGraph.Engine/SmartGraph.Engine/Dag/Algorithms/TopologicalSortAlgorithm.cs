@@ -20,16 +20,11 @@ using System;
 
 namespace SmartGraph.Engine.Dag.Algorithms
 {
-    public class TopologicalSortAlgorithm : DepthFirstSearchVisitor
+    public class TopologicalSortAlgorithm : DepthFirstSearchAlgorithm
     {
         public TopologicalSortAlgorithm(IVertex start) : base(start) { }
 
         public TopologicalSortAlgorithm(IGraph graph) : base(graph) { }
-
-        protected override void BackEdge(IEdge edge)
-        {
-            throw new InvalidOperationException("Cycle detected on edge " + edge.Name);
-        }
 
         protected override void FinishVertex(IVertex v)
         {

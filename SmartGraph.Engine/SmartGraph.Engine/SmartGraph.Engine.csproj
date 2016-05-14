@@ -97,9 +97,8 @@
     <Compile Include="Core\Policies\DefaultPublishingPolicyNode.cs" />
     <Compile Include="Core\DefaultPipelineModules.cs" />
     <Compile Include="Core\DefaultEnginePipeline.cs" />
-    <Compile Include="Dag\Algorithms\DepthFirstSearchAlgorithm.cs" />
     <Compile Include="Dag\Algorithms\CycleDetectedException.cs" />
-    <Compile Include="Dag\Algorithms\DepthFirstSearchVisitor.cs" />
+    <Compile Include="Dag\Algorithms\DepthFirstSearchAlgorithm.cs" />
     <Compile Include="Dag\Algorithms\EquivalenceClassesAlgorithm.cs" />
     <Compile Include="Dag\Algorithms\IDepthFirstSearchAlgorithm.cs" />
     <Compile Include="Dag\Algorithms\IAlgorithm.cs" />

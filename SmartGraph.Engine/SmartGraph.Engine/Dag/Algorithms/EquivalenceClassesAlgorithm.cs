@@ -107,7 +107,7 @@ namespace SmartGraph.Engine.Dag.Algorithms
             this.graph = graph;
             visitOrder = new Dictionary<IVertex, int>(graph.Vertices.Count);
 
-            Reset();
+            Initialize();
         }
 
 
@@ -125,7 +125,7 @@ namespace SmartGraph.Engine.Dag.Algorithms
             }
         }
 
-        public void Reset()
+        private void Initialize()
         {
             hasRun = false;
 

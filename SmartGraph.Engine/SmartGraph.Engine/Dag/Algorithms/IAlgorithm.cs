@@ -21,7 +21,5 @@ namespace SmartGraph.Engine.Dag.Algorithms
     public interface IAlgorithm
     {
         void Run();
-
-        void Reset();
     }
 }

@@ -17,23 +17,155 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using SmartGraph.Engine.Common;
 
 namespace SmartGraph.Engine.Dag.Algorithms
 {
-    public class DepthFirstSearchAlgorithm : DepthFirstSearchVisitor
+
+    public class DepthFirstSearchAlgorithm : IDepthFirstSearchAlgorithm
     {
-        public DepthFirstSearchAlgorithm(IVertex start) : base(start) { }
+        protected enum Colour { White, Gray, Black }
 
-        public DepthFirstSearchAlgorithm(IGraph graph) : base(graph) { }
+        protected readonly Dictionary<IVertex, Colour> colourMap = new Dictionary<IVertex, Colour>();
+        protected readonly List<IVertex> visitOrder = new List<IVertex>();
+        protected readonly IGraph graph;
+        protected readonly IVertex startVertex;
+        protected readonly bool visitWholeGraph;
+        protected bool hasRun;
 
-        protected override void BackEdge(IEdge edge)
+        public DepthFirstSearchAlgorithm(IVertex start)
         {
-            throw new InvalidOperationException("Cycle detected on edge " + edge.Name);
+            Guard.AssertNotNull(start, nameof(start));
+            Guard.AssertNotNull(start.Owner, nameof(start.Owner));
+
+            graph = start.Owner;
+            startVertex = start;
+
+            Initialize();
         }
 
-        protected override void FinishVertex(IVertex v)
+        public DepthFirstSearchAlgorithm(IGraph graph)
+        {
+            Guard.AssertNotNull(graph, nameof(graph));
+            Guard.AssertNotNull(graph.Vertices, nameof(graph.Vertices));
+
+            if (graph.Vertices.Count == 0)
+            {
+                throw new ArgumentException(String.Format("The graph '{graph.Name}' has no vertices"));
+            }
+
+            this.graph = graph;
+            visitWholeGraph = true;
+
+            Initialize();
+        }
+
+        public void Run()
+        {
+            if (!hasRun)
+            {
+                RunDepthFirstSearch();
+
+                hasRun = true;
+            }
+        }
+
+        public IList<IVertex> VisitOrder
+        {
+            get
+            {
+                Run();
+                return visitOrder;
+            }
+        }
+
+        #region Default Visitor Implementation
+
+        protected virtual void BackEdge(IEdge edge)
+        {
+            throw new CycleDetectedException(String.Format("Cycle detected on edge '{edge.Name}'"));
+        }
+
+        protected virtual void StartVertex(IVertex v) { }
+
+        protected virtual void DiscoverVertex(IVertex v) { }
+
+        protected virtual void FinishVertex(IVertex v)
         {
             visitOrder.Add(v);
         }
+
+        protected virtual void ExamineEdge(IEdge e) { }
+
+        protected virtual void TreeEdge(IEdge e) { }
+
+        protected virtual void ForwardOrCrossEdge(IEdge e) { }
+
+        #endregion
+
+        #region Depth First Search
+
+        private void Initialize()
+        {
+            hasRun = false;
+            visitOrder.Clear();
+            graph.Vertices.ForEach(v => colourMap[v] = Colour.White);
+        }
+
+        private void RunDepthFirstSearch()
+        {
+            var graphVertices = graph.Vertices;
+            var start = visitWholeGraph ? graphVertices.FirstOrDefault() : startVertex;
+            if (start == null) { return; }
+
+            StartVertex(start);
+            Visit(start);
+
+            if (visitWholeGraph)
+            {
+                graphVertices
+                    .Where(v => Colour.White == colourMap[v])
+                    .ForEach(v => Visit(v));
+            }
+        }
+
+        private void Visit(IVertex v)
+        {
+            colourMap[v] = Colour.Gray;
+            DiscoverVertex(v);
+
+            if (v.OutEdges.Count > 0)
+            {
+                foreach (var e in v.OutEdges)
+                {
+                    var t = e.Target;
+
+                    ExamineEdge(e);
+
+                    switch (colourMap[t])
+                    {
+                        case Colour.White:
+                            TreeEdge(e);
+                            Visit(t);
+                            break;
+
+                        case Colour.Gray:
+                            BackEdge(e);
+                            break;
+
+                        case Colour.Black:
+                            ForwardOrCrossEdge(e);
+                            break;
+                    }
+                }
+            }
+
+            colourMap[v] = Colour.Black;
+            FinishVertex(v);
+        }
+
+        #endregion
     }
 }
