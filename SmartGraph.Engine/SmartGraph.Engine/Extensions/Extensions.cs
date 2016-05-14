@@ -16,70 +16,58 @@
 //
 #endregion
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using SmartGraph.Engine.Common;
 
-public static class Extensions
+namespace System.Linq
 {
-    public static String ToFlatString<K,V>(this IDictionary<K,V> dict)
+    public static class Extensions
     {
-        Guard.AssertNotNull(dict, nameof(dict));
+        public static bool None<T>(this IEnumerable<T> list)
+        {
+            Guard.AssertNotNull(list, nameof(list));
 
-        return dict.Aggregate(new StringBuilder(),
-            (current, next) => current.AppendFormat(", {0}:{1}", next.Key, next.Value),
-            sb => sb.Length > 2 ? sb.Remove(0, 2).ToString() : "");
+            return !list.Any();
+        }
+
+        public static bool None<T>(this IEnumerable<T> list, Func<T, bool> predicate)
+        {
+            Guard.AssertNotNull(list, nameof(list));
+            Guard.AssertNotNull(predicate, nameof(predicate));
+
+            return !list.Any(predicate);
+        }
+
+        public static void ForEach<T>(this IEnumerable<T> coll, Action<T> action)
+        {
+            Guard.AssertNotNull(coll, nameof(coll));
+            Guard.AssertNotNull(action, nameof(action));
+
+            foreach (var item in coll) { action(item); }
+        }
     }
+}
 
-    public static String ToFlatString<T>(this IList<T> list)
+namespace System
+{
+    public static class Extensions
     {
-        Guard.AssertNotNull(list, nameof(list));
+        public static double NextBetween(this Random random, double min, double max)
+        {
+            Guard.AssertNotNull(random, nameof(random));
+            Guard.AssertSmallerThan(min, max, String.Format("{0}, {1}", nameof(min), nameof(max)));
 
-        return list.Aggregate(new StringBuilder(),
-            (current, next) => current.AppendFormat(", {0}", next.ToString()),
-            sb => sb.Length > 2 ? sb.Remove(0, 2).ToString() : "");
-    }
+            var r = random.NextDouble();
+            return r * (max - min) + min;
+        }
 
-    public static void ForEach<T>(this IEnumerable<T> coll, Action<T> action)
-    {
-        Guard.AssertNotNull(coll, nameof(coll));
-        Guard.AssertNotNull(action, nameof(action));
+        public static int NextBetween(this Random random, int min, int max)
+        {
+            Guard.AssertNotNull(random, nameof(random));
+            Guard.AssertSmallerThan(min, max, String.Format("{0}, {1}", nameof(min), nameof(max)));
 
-        foreach (var item in coll) { action(item); }
-    }
-
-    public static double NextBetween(this Random random, double min, double max)
-    {
-        Guard.AssertNotNull(random, nameof(random));
-        Guard.AssertSmallerThan(min, max, String.Format("{0}, {1}", nameof(min), nameof(max)));
-
-        var r = random.NextDouble();
-        return r * (max - min) + min;
-    }
-
-    public static int NextBetween(this Random random, int min, int max)
-    {
-        Guard.AssertNotNull(random, nameof(random));
-        Guard.AssertSmallerThan(min, max, String.Format("{0}, {1}", nameof(min), nameof(max)));
-
-        var r = random.Next();
-        return min + r % (max - min + 1);
-    }
-
-    public static bool None<T>(this IEnumerable<T> list)
-    {
-        Guard.AssertNotNull(list, nameof(list));
-
-        return !list.Any();
-    }
-
-    public static bool None<T>(this IEnumerable<T> list, Func<T, bool> predicate)
-    {
-        Guard.AssertNotNull(list, nameof(list));
-        Guard.AssertNotNull(predicate, nameof(predicate));
-
-        return !list.Any(predicate);
+            var r = random.Next();
+            return min + r % (max - min + 1);
+        }
     }
 }

@@ -16,8 +16,9 @@
 //
 #endregion
 
-using SmartGraph.Engine.Dag;
 using System.IO;
+using System.Linq;
+using SmartGraph.Engine.Dag;
 
 namespace SmartGraph.Engine.RandomGraphGenerator.Formats
 {

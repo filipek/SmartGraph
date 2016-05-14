@@ -47,15 +47,15 @@ namespace SmartGraph.Engine.Core
     }
 
     public interface IEngine
-	{
-		String Name { get; }
+    {
+        String Name { get; }
 
-		IGraph Graph { get; }
+        IGraph Graph { get; }
 
         IEngineNode this[String name] { get; }
 
-		void Execute(IEngineTask task);
-	}
+        void Execute(IEngineTask task);
+    }
 
     public interface IEngineTask
     {
@@ -64,7 +64,10 @@ namespace SmartGraph.Engine.Core
         IList<IVertex> CalculationOrder { get; set; }
 
         void Execute();
+    }
 
+    public interface IMeasurable
+    {
         void StartMeasurementCapture();
         void EndMeasurementCapture();
     }

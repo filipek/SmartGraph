@@ -16,12 +16,12 @@
 //
 #endregion
 
-using SmartGraph.Engine.Common;
-using SmartGraph.Engine.Dag;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using SmartGraph.Engine.Common;
+using SmartGraph.Engine.Dag;
 
 namespace SmartGraph.Engine.Core
 {
@@ -38,21 +38,6 @@ namespace SmartGraph.Engine.Core
             this.engine = engine;
             DirtyNode = adaptor;
         }
-
-        public void StartMeasurementCapture()
-        {
-            stopWatch = Stopwatch.StartNew();
-        }
-
-        public void EndMeasurementCapture()
-        {
-            stopWatch.Stop();
-
-            EngineCounters.UpdateTaskTime(stopWatch.ElapsedMilliseconds);
-        }
-
-        public IEngineNode DirtyNode { get; private set; }
-        public IList<IVertex> CalculationOrder { get; set; }
 
 		public void Execute()
 		{
@@ -75,11 +60,23 @@ namespace SmartGraph.Engine.Core
                 updateOrder.Add(host.Node.Name);
             }
 
-			Diagnostics.WriteLine(
-				this, String.Format( "updated {0} nodes [{1} -> {2}]",
-				updateOrder.Count,
-				DirtyNode.Node.Name,
-				updateOrder.ToFlatString()));
+			Diagnostics.WriteLine(this, String.Format( "updated {0} nodes [{1} -> {2}]",
+				updateOrder.Count, DirtyNode.Node.Name, String.Join(",", updateOrder)));
 		}
-	}
+
+        public void StartMeasurementCapture()
+        {
+            stopWatch = Stopwatch.StartNew();
+        }
+
+        public void EndMeasurementCapture()
+        {
+            stopWatch.Stop();
+
+            EngineCounters.UpdateTaskTime(stopWatch.ElapsedMilliseconds);
+        }
+
+        public IEngineNode DirtyNode { get; private set; }
+        public IList<IVertex> CalculationOrder { get; set; }
+    }
 }

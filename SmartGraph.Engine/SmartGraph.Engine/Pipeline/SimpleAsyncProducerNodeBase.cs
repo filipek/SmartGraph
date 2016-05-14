@@ -16,17 +16,47 @@
 //
 #endregion
 
-using SmartGraph.Engine.Common;
-using SmartGraph.Engine.Pipeline.Interfaces;
 using System;
 using System.Threading;
+using SmartGraph.Engine.Common;
+using SmartGraph.Engine.Pipeline.Interfaces;
 
 namespace SmartGraph.Engine.Pipeline
 {
     public abstract class SimpleAsyncProducerNodeBase<T> : SimplePipelineComponentBase<T>
         where T : class
     {
-        protected Thread thread;
+        private Thread thread;
+
+        public SimpleAsyncProducerNodeBase(String name)
+            : this(name, new SimpleMessageBus<T>()) { }
+
+        private SimpleAsyncProducerNodeBase(String name, IMessageBus<T> msgBus)
+            : base(name)
+        {
+            MessageBus = new SimpleMessageBus<T>();
+        }
+
+        public override void Produce(T message)
+        {
+            MessageBus.Produce(message);
+        }
+
+        public virtual void Start()
+        {
+            thread = new Thread(new ThreadStart(ThreadFunc));
+            thread.Start();
+        }
+
+        public virtual void Stop()
+        {
+            if (thread != null)
+            {
+                thread.Interrupt();
+                thread.Join();
+                thread = null;
+            }
+        }
 
         private void ThreadFunc()
         {
@@ -69,35 +99,5 @@ namespace SmartGraph.Engine.Pipeline
         protected IMessageBus<T> MessageBus { get; private set; }
 
         protected abstract void InternalProduce(T message);
-
-        public SimpleAsyncProducerNodeBase(String name)
-            : this(name, new SimpleMessageBus<T>()) { }
-
-        public SimpleAsyncProducerNodeBase(String name, IMessageBus<T> msgBus)
-            : base(name)
-        {
-            MessageBus = new SimpleMessageBus<T>();
-        }
-
-        public override void Produce(T message)
-        {
-            MessageBus.Produce(message);
-        }
-
-        public virtual void Start()
-        {
-            thread = new Thread(new ThreadStart(ThreadFunc));
-            thread.Start();
-        }
-
-        public virtual void Stop()
-        {
-            if (thread != null)
-            {
-                thread.Interrupt();
-                thread.Join();
-                thread = null;
-            }
-        }
     }
 }

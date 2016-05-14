@@ -29,7 +29,7 @@ namespace SmartGraph.Engine.Core
 		private EngineCore engine;
         private IDictionary<String, String> inputMap;
 
-        private String ReverseInput(String name)
+        private String ReverseInputMap(String name)
         {
             return inputMap.First(i => i.Value == name).Key;
         }
@@ -95,7 +95,7 @@ namespace SmartGraph.Engine.Core
 	    {
             // Initialize the InputValues collection with all the names of inputs.
 
-            Vertex.InEdges.ForEach(e => InputValues.Add(ReverseInput(e.Source.Name), null));
+            Vertex.InEdges.ForEach(e => InputValues.Add(ReverseInputMap(e.Source.Name), null));
 
             Node.Bind(this);
 		}

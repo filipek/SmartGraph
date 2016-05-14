@@ -16,10 +16,10 @@
 //
 #endregion
 
-using SmartGraph.Engine.Pipeline;
-using SmartGraph.Engine.Pipeline.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using SmartGraph.Engine.Pipeline;
+using SmartGraph.Engine.Pipeline.Interfaces;
 
 // A pipeline is used to bind the various policies (pipeline nodes) together to
 // form the SmartGraph engine. Default implementation is provided for each:
@@ -33,7 +33,7 @@ using System.Linq;
 
 namespace SmartGraph.Engine.Core
 {
-	public class DefaultEnginePipeline : SimplePipeline<IEngineTask>, IEnginePipeline
+    public class DefaultEnginePipeline : SimplePipeline<IEngineTask>, IEnginePipeline
 	{
         protected readonly IList<IPipelineNode<IEngineTask>> enginePipelineNodes;
 
@@ -62,10 +62,7 @@ namespace SmartGraph.Engine.Core
 		{
             enginePipelineNodes = new List<IPipelineNode<IEngineTask>>()
             {
-			    Modules[0].Producer,
-			    Modules[1].Producer,
-			    Modules[2].Producer,
-			    Modules[3].Producer
+			    Modules[0].Producer, Modules[1].Producer, Modules[2].Producer, Modules[3].Producer
             };
 		}
 

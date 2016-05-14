@@ -40,16 +40,26 @@ namespace SmartGraph.Engine.Core
 
         protected override void InternalProduce(IEngineTask task)
         {
+            if (task is IMeasurable)
+            {
+                ((IMeasurable)task).StartMeasurementCapture();
+            }
+
             try
             {
-                task.StartMeasurementCapture();
                 task.Execute();
-                task.EndMeasurementCapture();
             }
             catch (Exception e)
             {
                 Diagnostics.WriteLine(this,
                     String.Format(@"unexpected exception= {0}", e.Message));
+            }
+            finally
+            {
+                if (task is IMeasurable)
+                {
+                    ((IMeasurable)task).EndMeasurementCapture();
+                }
             }
         }
 
