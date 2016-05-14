@@ -16,15 +16,15 @@
 //
 #endregion
 
+using System;
+using System.Linq;
 using SmartGraph.Engine.Common;
 using SmartGraph.Engine.Core;
 using SmartGraph.Engine.Dag;
-using System;
-using System.Linq;
 
 namespace SmartGraph.Engine
 {
-	public class SmartEngine : IDisposable
+    public class SmartEngine : IDisposable
 	{
         private enum State
         {
@@ -33,7 +33,8 @@ namespace SmartGraph.Engine
         }
 
         private readonly EngineCore core;
-		private State state;
+        private readonly IPublishingPipelineNode publisher;
+        private State state;
 
         public SmartEngine(String name, IEngineBuilder builder)
             : this(name, builder, new DefaultEnginePipeline()) {}
@@ -51,24 +52,17 @@ namespace SmartGraph.Engine
             }
 
 			core = new EngineCore(name, builder, pipeline);
-			state = State.Stopped;
-		}
+            core.Bind();
+
+            state = State.Stopped;
+            publisher = core.Pipeline.Nodes.Last() as IPublishingPipelineNode;
+        }
 
         public void Dispose()
         {
             Stop();
             core.Dispose();
         }
-
-		public void Bind()
-		{
-            if (state != State.Stopped)
-            {
-                throw new InvalidOperationException("Engine must be stopped");
-            }
-
-			core.Bind();
-		}
 
 		public void Start()
 		{
@@ -87,19 +81,21 @@ namespace SmartGraph.Engine
 			state = State.Stopped;
 		}
 
-		public void Execute(IEngineTask task)
-		{
-			core.Pipeline.Produce(task);
-		}
+        public event CleanGraphEventHandler CleanGraphEvent
+        {
+            add { publisher.CleanGraphEvent += value; }
+            remove { publisher.CleanGraphEvent -= value; }
+        }
 
-		public IPublishingPipelineNode Publisher
-		{
-			get { return core.Pipeline.Nodes.Last() as IPublishingPipelineNode; }
-		}
+        public event CleanNodeEventHandler CleanNodeEvent
+        {
+            add { publisher.CleanNodeEvent += value; }
+            remove { publisher.CleanNodeEvent -= value; }
+        }
 
         public IGraph Graph
         {
             get { return core.Graph; }
         }
-	}
+    }
 }

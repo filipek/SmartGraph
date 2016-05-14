@@ -16,7 +16,6 @@
 //
 #endregion
 
-using System;
 using System.Collections.Generic;
 
 namespace SmartGraph.Engine.Pipeline.Interfaces

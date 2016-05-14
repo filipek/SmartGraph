@@ -31,6 +31,17 @@ namespace SmartGraph.Engine.TestApp
         private readonly String name;
         private readonly String publishEventPattern;
 
+        public static String GetDataFile(String name)
+        {
+            var filePath = String.Format(@"{0}\..\..\data\{1}.xml", Environment.CurrentDirectory, name);
+            return filePath;
+        }
+
+        private void OnCleanGraphHandler(IEngine engine)
+        {
+            Console.WriteLine($"Engine '{engine.Name}' is clean");
+        }
+
         private void OnCleanNodeHandler(IEngine engine, INode node)
         {
             var nodeName = node.Name;
@@ -57,9 +68,8 @@ namespace SmartGraph.Engine.TestApp
             this.name = name;
             publishEventPattern = containsPattern;
 
-            var file = Helpers.DataDir(String.Format("{0}.xml", name));
             CEngine engineXml;
-            using (var xmlReader = new XmlTextReader(file))
+            using (var xmlReader = new XmlTextReader(GetDataFile(name)))
             {
                 engineXml = (CEngine)XmlHelpers.Deserialize(
                     typeof(CEngine), xmlReader, XmlEngineBuilder.EngineNamespace);
@@ -67,9 +77,9 @@ namespace SmartGraph.Engine.TestApp
 
             var builder = new XmlEngineBuilder(engineXml);
             engine = new SmartEngine(name, builder);
-            engine.Bind();
 
-            engine.Publisher.CleanNodeEvent += (e, n) => OnCleanNodeHandler(e, n);
+            engine.CleanNodeEvent += (e, n) => OnCleanNodeHandler(e, n);
+            engine.CleanGraphEvent += e => OnCleanGraphHandler(e);
         }
 
         public void Start()

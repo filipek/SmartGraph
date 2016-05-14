@@ -16,18 +16,18 @@
 //
 #endregion
 
-using SmartGraph.Engine.Common;
-using SmartGraph.Engine.Dag;
-using SmartGraph.Engine.Nodes;
-using SmartGraph.Engine.Xml.Schema;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SmartGraph.Engine.Common;
 using SmartGraph.Engine.Core;
+using SmartGraph.Engine.Dag;
+using SmartGraph.Engine.Nodes;
+using SmartGraph.Engine.Xml.Schema;
 
 namespace SmartGraph.Engine.Xml
 {
-	public class XmlEngineBuilder : IEngineBuilder
+    public class XmlEngineBuilder : IEngineBuilder
 	{
 		public const String EngineNamespace = "urn:smartgraph:engine";
         public const String NodesNamespace = "urn:smartgraph:engine:nodes";

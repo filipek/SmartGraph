@@ -21,14 +21,13 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
-using System.Xml.XPath;
 
 namespace SmartGraph.Engine.Xml
 {
-	/// <summary>
-	/// Summary description for XmlHelpers.
-	/// </summary>
-	public static class XmlHelpers
+    /// <summary>
+    /// Summary description for XmlHelpers.
+    /// </summary>
+    public static class XmlHelpers
 	{
 		public static Object Deserialize(Type type, Stream xml)
 		{

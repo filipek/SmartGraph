@@ -16,11 +16,11 @@
 //
 #endregion
 
-using SmartGraph.Engine.Common;
-using SmartGraph.Engine.Pipeline.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SmartGraph.Engine.Common;
+using SmartGraph.Engine.Pipeline.Interfaces;
 
 namespace SmartGraph.Engine.Pipeline
 {
