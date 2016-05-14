@@ -26,7 +26,7 @@ public static class Extensions
 {
     public static String ToFlatString<K,V>(this IDictionary<K,V> dict)
     {
-        Guard.AssertNotNull(dict, "dict");
+        Guard.AssertNotNull(dict, nameof(dict));
 
         return dict.Aggregate(new StringBuilder(),
             (current, next) => current.AppendFormat(", {0}:{1}", next.Key, next.Value),
@@ -35,7 +35,7 @@ public static class Extensions
 
     public static String ToFlatString<T>(this IList<T> list)
     {
-        Guard.AssertNotNull(list, "list");
+        Guard.AssertNotNull(list, nameof(list));
 
         return list.Aggregate(new StringBuilder(),
             (current, next) => current.AppendFormat(", {0}", next.ToString()),
@@ -44,16 +44,16 @@ public static class Extensions
 
     public static void ForEach<T>(this IEnumerable<T> coll, Action<T> action)
     {
-        Guard.AssertNotNull(coll, "coll");
-        Guard.AssertNotNull(action, "action");
+        Guard.AssertNotNull(coll, nameof(coll));
+        Guard.AssertNotNull(action, nameof(action));
 
         foreach (var item in coll) { action(item); }
     }
 
     public static double NextBetween(this Random random, double min, double max)
     {
-        Guard.AssertNotNull(random, "random");
-        Guard.AssertSmallerThan(min, max, "min, max");
+        Guard.AssertNotNull(random, nameof(random));
+        Guard.AssertSmallerThan(min, max, nameof(min) + nameof(max));
 
         var r = random.NextDouble();
         return r * (max - min) + min;
@@ -61,8 +61,8 @@ public static class Extensions
 
     public static int NextBetween(this Random random, int min, int max)
     {
-        Guard.AssertNotNull(random, "random");
-        Guard.AssertSmallerThan(min, max, "min, max");
+        Guard.AssertNotNull(random, nameof(random));
+        Guard.AssertSmallerThan(min, max, nameof(min) + nameof(max));
 
         var r = random.Next();
         return min + r % (max - min + 1);
@@ -70,15 +70,15 @@ public static class Extensions
 
     public static bool None<T>(this IEnumerable<T> list)
     {
-        Guard.AssertNotNull(list, "list");
+        Guard.AssertNotNull(list, nameof(list));
 
         return !list.Any();
     }
 
     public static bool None<T>(this IEnumerable<T> list, Func<T, bool> predicate)
     {
-        Guard.AssertNotNull(list, "list");
-        Guard.AssertNotNull(predicate, "predicate");
+        Guard.AssertNotNull(list, nameof(list));
+        Guard.AssertNotNull(predicate, nameof(predicate));
 
         return !list.Any(predicate);
     }
