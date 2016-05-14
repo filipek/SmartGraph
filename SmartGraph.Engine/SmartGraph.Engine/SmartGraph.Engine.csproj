@@ -90,11 +90,11 @@
     </Compile>
     <Compile Include="Core\EngineCounters.cs" />
     <Compile Include="Core\Interfaces\EnginePipeline.cs" />
-    <Compile Include="Core\Interfaces\Nodes.cs" />
+    <Compile Include="Core\Interfaces\EngineNode.cs" />
     <Compile Include="Core\NodeBase.cs" />
-    <Compile Include="Core\Policies\DefaultSchedulingPolicyNode.cs" />
-    <Compile Include="Core\Policies\DefaultCalculationPolicyNode.cs" />
-    <Compile Include="Core\Policies\DefaultPublishingPolicyNode.cs" />
+    <Compile Include="Core\DefaultPipeline\DefaultSchedulingPolicyNode.cs" />
+    <Compile Include="Core\DefaultPipeline\DefaultCalculationPolicyNode.cs" />
+    <Compile Include="Core\DefaultPipeline\DefaultPublishingPolicyNode.cs" />
     <Compile Include="Core\DefaultPipelineModules.cs" />
     <Compile Include="Core\DefaultEnginePipeline.cs" />
     <Compile Include="Dag\Algorithms\CycleDetectedException.cs" />
@@ -124,7 +124,7 @@
     </Compile>
     <Compile Include="Common\Diagnostics.cs" />
     <Compile Include="Pipeline\SimplePipeline.cs" />
-    <Compile Include="Core\Policies\DefaultEventPolicyNode.cs">
+    <Compile Include="Core\DefaultPipeline\DefaultEventPolicyNode.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Xml\XmlBuilder.cs">

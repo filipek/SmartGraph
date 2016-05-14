@@ -16,16 +16,15 @@
 //
 #endregion
 
-using SmartGraph.Engine.Common;
-using SmartGraph.Engine.Core.Interfaces;
-using SmartGraph.Engine.Dag;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SmartGraph.Engine.Common;
+using SmartGraph.Engine.Dag;
 
 namespace SmartGraph.Engine.Core
 {
-	internal class EngineNode : IEngineNode
+    internal class EngineNode : IEngineNode
 	{
 		private EngineCore engine;
         private IDictionary<String, String> inputMap;

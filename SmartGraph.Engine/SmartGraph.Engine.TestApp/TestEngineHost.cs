@@ -16,12 +16,12 @@
 //
 #endregion
 
-using SmartGraph.Engine.Common;
-using SmartGraph.Engine.Core.Interfaces;
-using SmartGraph.Engine.Xml;
-using SmartGraph.Engine.Xml.Schema;
 using System;
 using System.Xml;
+using SmartGraph.Engine.Common;
+using SmartGraph.Engine.Core;
+using SmartGraph.Engine.Xml;
+using SmartGraph.Engine.Xml.Schema;
 
 namespace SmartGraph.Engine.TestApp
 {

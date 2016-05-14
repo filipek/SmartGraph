@@ -16,8 +16,6 @@
 //
 #endregion
 
-using SmartGraph.Engine.Core.Interfaces;
-using SmartGraph.Engine.Core.Policies;
 using SmartGraph.Engine.Pipeline;
 
 // A pipeline is used to bind the various policies (pipeline nodes) together to

@@ -16,7 +16,6 @@
 //
 #endregion
 
-using SmartGraph.Engine.Core.Interfaces;
 using SmartGraph.Engine.Pipeline;
 using SmartGraph.Engine.Pipeline.Interfaces;
 using System.Collections.Generic;

@@ -17,13 +17,13 @@
 #endregion
 
 using SmartGraph.Engine.Common;
-using SmartGraph.Engine.Core.Interfaces;
 using SmartGraph.Engine.Dag;
 using SmartGraph.Engine.Nodes;
 using SmartGraph.Engine.Xml.Schema;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SmartGraph.Engine.Core;
 
 namespace SmartGraph.Engine.Xml
 {

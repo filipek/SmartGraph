@@ -16,17 +16,17 @@
 //
 #endregion
 
-using SmartGraph.Engine.Common;
-using SmartGraph.Engine.Core.Interfaces;
-using SmartGraph.Engine.Xml;
 using System;
 using System.Timers;
 using System.Xml;
 using System.Xml.Serialization;
+using SmartGraph.Engine.Common;
+using SmartGraph.Engine.Core;
+using SmartGraph.Engine.Xml;
 
 namespace SmartGraph.Engine.Nodes.Core
 {
-	[Serializable]
+    [Serializable]
 	[InvariantNode]
 	[XmlRoot(Namespace="urn:smartgraph:engine:nodes", IsNullable = false)]
 	public sealed class ConstValue : NodeBase

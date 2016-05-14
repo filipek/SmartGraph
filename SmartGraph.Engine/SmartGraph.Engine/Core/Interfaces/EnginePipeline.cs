@@ -19,7 +19,7 @@
 using SmartGraph.Engine.Pipeline.Interfaces;
 using System.Collections.Generic;
 
-namespace SmartGraph.Engine.Core.Interfaces
+namespace SmartGraph.Engine.Core
 {
     public interface IEnginePipeline : IPipeline<IEngineTask>
 	{

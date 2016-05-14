@@ -16,10 +16,10 @@
 //
 #endregion
 
-using SmartGraph.Engine.Common;
-using SmartGraph.Engine.Core.Interfaces;
 using System;
 using System.Collections.Generic;
+using SmartGraph.Engine.Common;
+using SmartGraph.Engine.Core;
 
 namespace SmartGraph.Engine.Nodes
 {
