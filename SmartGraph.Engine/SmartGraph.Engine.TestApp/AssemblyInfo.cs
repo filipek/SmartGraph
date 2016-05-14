@@ -24,8 +24,8 @@ using System.Runtime.CompilerServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 //
-[assembly: AssemblyDescription("Tests for SmartGraph")]
-[assembly: AssemblyTitle("SmartGraph.Tests")]
+[assembly: AssemblyDescription("TestApp for SmartGraph")]
+[assembly: AssemblyTitle("SmartGraph.TestApp")]
 
 [assembly: AssemblyCompany("smartgrid.net")]
 [assembly: AssemblyCopyright("smartgrid.net")]

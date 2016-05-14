@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30110.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartGraph.Engine", "SmartGraph.Engine\SmartGraph.Engine\SmartGraph.Engine.csproj", "{7AAC7925-7025-46C9-A138-63F1266B4F9C}"
 EndProject
@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartGraph.Engine.Nodes", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartGraph.Engine.Documentation", "SmartGraph.Engine\SmartGraph.Engine.Documentation\SmartGraph.Engine.Documentation.csproj", "{78EA0215-77B2-44D9-BB39-AEEF8994CE57}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartGraph.Engine.Tests", "SmartGraph.Engine\SmartGraph.Engine.Tests\SmartGraph.Engine.Tests.csproj", "{C80740BF-82EE-45B3-B7B3-23C5AF8016F8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartGraph.Engine.TestApp", "SmartGraph.Engine\SmartGraph.Engine.TestApp\SmartGraph.Engine.TestApp.csproj", "{C80740BF-82EE-45B3-B7B3-23C5AF8016F8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartGraph.Engine.RandomGraphGenerator", "SmartGraph.Engine\SmartGraph.Engine.RandomGraphGenerator\SmartGraph.Engine.RandomGraphGenerator.csproj", "{EC412321-9C04-4D5A-8EC3-E460902AF04D}"
 EndProject

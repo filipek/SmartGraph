@@ -3,13 +3,3 @@
 ################################################################################
 
 /SmartGraph.Engine/SmartGraph.Engine/obj/Debug
-/SmartGraph.Engine/SmartGraph.Engine.Tests/obj/Debug
-/SmartGraph.Engine/SmartGraph.Engine.RandomGraphGenerator/obj/Debug
-/SmartGraph.Engine/SmartGraph.Engine.Nodes/obj/Debug
-/SmartGraph.Engine/SmartGraph.Engine.Documentation/obj/Debug
-/.vs/SmartGraph.Engine
-/SmartGraph.Engine/SmartGraph.Engine.Tests/bin/Debug
-/SmartGraph.Engine/SmartGraph.Engine.RandomGraphGenerator/bin/Debug
-/SmartGraph.Engine/SmartGraph.Engine.Nodes/bin/Debug
-/SmartGraph.Engine/SmartGraph.Engine.Documentation/bin/Debug
-/SmartGraph.Engine/SmartGraph.Engine/bin/Debug
