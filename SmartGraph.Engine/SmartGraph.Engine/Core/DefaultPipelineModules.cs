@@ -35,24 +35,24 @@ namespace SmartGraph.Engine.Core
     public class DefaultEventModule : SimplePipelineModule<IEngineTask>
 	{
         public DefaultEventModule()
-            : base("DefaultEventModule", null, new DefaultEventPolicyNode()) { }
+            : base(typeof(DefaultEventModule).Name, null, new DefaultEventPolicyNode()) { }
 	}
 
     public class DefaultSchedulingModule : SimplePipelineModule<IEngineTask>
 	{
         public DefaultSchedulingModule()
-            : base("DefaultSchedulingModule", null, new DefaultSchedulingPolicyNode()) { }
+            : base(typeof(DefaultSchedulingModule).Name, null, new DefaultSchedulingPolicyNode()) { }
 	}
 
     public class DefaultPublishingModule : SimplePipelineModule<IEngineTask>
 	{
         public DefaultPublishingModule()
-            : base("DefaultPublishingModule", null, new DefaultPublishingPolicyNode()) { }
+            : base(typeof(DefaultPublishingModule).Name, null, new DefaultPublishingPolicyNode()) { }
 	}
 
     public class DefaultCalculationModule : SimplePipelineModule<IEngineTask>
 	{
         public DefaultCalculationModule()
-            : base("DefaultCalculationModule", null, new DefaultCalculationPolicyNode()) { }
+            : base(typeof(DefaultCalculationModule).Name, null, new DefaultCalculationPolicyNode()) { }
 	}
 }

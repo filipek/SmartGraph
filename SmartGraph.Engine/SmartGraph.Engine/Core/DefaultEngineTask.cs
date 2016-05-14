@@ -69,7 +69,7 @@ namespace SmartGraph.Engine.Core
 
             var calculationList = CalculationOrder
                 .Select(v => engine[v.Name])
-                .Where(h => !(h.Node is IActiveNode));
+                .Where(h => !(h.Node is IActiveNode)).ToArray();
             
             foreach (var host in calculationList)
             {
