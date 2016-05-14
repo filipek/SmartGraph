@@ -16,49 +16,39 @@
 //
 #endregion
 
-using SmartGraph.Engine.Dag;
 using System;
 using System.Collections.Generic;
-using System.IO;
 
-namespace SmartGraph.Engine.TestApp
+namespace SmartGraph.Engine.Dag
 {
-	internal class Helpers
+    /// <summary>
+    /// Represents a graph object
+    /// </summary>
+	public interface IGraphObject
 	{
-		public static String DataDir( String f )
-		{
-			return Environment.CurrentDirectory + @"\..\..\data\" + f;
-		}
-		public static String LoadExpectedStringFile(String expectedName)
-		{
-			StreamReader s = File.OpenText( Helpers.DataDir( expectedName + ".txt" ) );
-			return s.ReadToEnd();
-		}
-        public static String DumpVertexList(IList<IVertex> vo)
-		{
-			int i = 0;
-			String res = String.Empty;
-			foreach ( IVertex v in vo )
-			{
-				res += v.Name;
-				if ( i++ != ( vo.Count - 1 ) )
-					res += ", ";
-			}
+		String Name { get; }
 
-			return res;
-		}
-        public static String DumpListOfVertexLists(IList<IList<IVertex>> lvl)
-		{
-			int i = 0;
-			String res = String.Empty;
-            foreach (IList<IVertex> vl in lvl)
-			{
-				res += String.Format( "{0}", DumpVertexList( vl ) );
-				if ( i++ != ( lvl.Count - 1 ) )
-					res += "\r\n";
-			}
+		IGraph Owner { get; }
+	}
 
-			return res;
-		}
+	public interface IVertex : IGraphObject
+	{
+        ISet<IEdge> InEdges { get; }
+
+        ISet<IEdge> OutEdges { get; }
+	}
+
+	public interface IEdge: IGraphObject
+	{
+		IVertex Source { get; }
+
+		IVertex Target { get; }
+	}
+
+	public interface IGraph: IGraphObject
+	{
+        ISet<IVertex> Vertices { get; }
+
+        ISet<IEdge> Edges { get; }
 	}
 }

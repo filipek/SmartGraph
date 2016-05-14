@@ -19,7 +19,7 @@
 using SmartGraph.Engine.Common;
 using SmartGraph.Engine.Core.Interfaces;
 using SmartGraph.Engine.Dag.Algorithms;
-using SmartGraph.Engine.Dag.Interfaces;
+using SmartGraph.Engine.Dag;
 using SmartGraph.Engine.Pipeline;
 using SmartGraph.Engine.Pipeline.Interfaces;
 using System;
@@ -74,7 +74,7 @@ namespace SmartGraph.Engine.Core.Policies
 				if ( ! (host.Node is IActiveNode) )
 					continue;
 
-				var vertexSort = new TopologicalSort(vertex);
+				var vertexSort = new TopologicalSortAlgorithm(vertex);
 				vertexSort.Run();
 
                 var topsort = new List<IVertex>();
@@ -120,7 +120,7 @@ namespace SmartGraph.Engine.Core.Policies
                 // so here we sort the whole graph and use the visit order to
                 // force calculation of everything.
 
-                var graphSort = new TopologicalSort(engine.Graph);
+                var graphSort = new TopologicalSortAlgorithm(engine.Graph);
                 graphSort.Run();
 
                 task.CalculationOrder = graphSort.VisitOrder;

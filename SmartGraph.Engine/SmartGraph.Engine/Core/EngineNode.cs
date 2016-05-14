@@ -18,7 +18,7 @@
 
 using SmartGraph.Engine.Common;
 using SmartGraph.Engine.Core.Interfaces;
-using SmartGraph.Engine.Dag.Interfaces;
+using SmartGraph.Engine.Dag;
 using System;
 using System.Collections.Generic;
 using System.Linq;

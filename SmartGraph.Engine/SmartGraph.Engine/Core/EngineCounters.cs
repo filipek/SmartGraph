@@ -47,33 +47,40 @@ namespace SmartGraph.Engine.Core
 
         internal static void Create()
         {
-            if (PerformanceCounterCategory.Exists(engineCategory))
+            try
             {
-                PerformanceCounterCategory.Delete(engineCategory);
+                if (PerformanceCounterCategory.Exists(engineCategory))
+                {
+                    PerformanceCounterCategory.Delete(engineCategory);
+                }
+
+                var counterList = new CounterCreationDataCollection();
+
+                counterList.Add(new CounterCreationData(
+                    dirtyNodeEventCount,
+                    "Describes the number of dirty node messages on the engine's event queue.",
+                    PerformanceCounterType.NumberOfItems32));
+
+                counterList.Add(new CounterCreationData(
+                    calculatedNodeCount,
+                    "Describes the number of items scheduled for calculation by an engine task.",
+                    PerformanceCounterType.NumberOfItems32));
+
+                counterList.Add(new CounterCreationData(
+                    taskExecutionTime,
+                    @"Describes the time in milliseconds to process an engine task.",
+                    PerformanceCounterType.NumberOfItems32));
+
+                PerformanceCounterCategory.Create(
+                    engineCategory,
+                    "Engine counters",
+                    PerformanceCounterCategoryType.SingleInstance,
+                    counterList);
             }
-
-            var counterList = new CounterCreationDataCollection();
-
-            counterList.Add(new CounterCreationData(
-                dirtyNodeEventCount,
-                "Describes the number of dirty node messages on the engine's event queue.",
-                PerformanceCounterType.NumberOfItems32));
-
-            counterList.Add(new CounterCreationData(
-                calculatedNodeCount,
-                "Describes the number of items scheduled for calculation by an engine task.",
-                PerformanceCounterType.NumberOfItems32));
-
-            counterList.Add(new CounterCreationData(
-                taskExecutionTime,
-                @"Describes the time in milliseconds to process an engine task.",
-                PerformanceCounterType.NumberOfItems32));
-
-            PerformanceCounterCategory.Create(
-                engineCategory,
-                "Engine counters",
-                PerformanceCounterCategoryType.SingleInstance,
-                counterList);
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Failed to create ", ex);
+            }
         }
 
         internal static void Dispose()

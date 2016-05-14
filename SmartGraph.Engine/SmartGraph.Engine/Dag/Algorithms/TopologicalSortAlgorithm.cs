@@ -16,49 +16,24 @@
 //
 #endregion
 
-using SmartGraph.Engine.Dag;
 using System;
-using System.Collections.Generic;
-using System.IO;
 
-namespace SmartGraph.Engine.TestApp
+namespace SmartGraph.Engine.Dag.Algorithms
 {
-	internal class Helpers
-	{
-		public static String DataDir( String f )
-		{
-			return Environment.CurrentDirectory + @"\..\..\data\" + f;
-		}
-		public static String LoadExpectedStringFile(String expectedName)
-		{
-			StreamReader s = File.OpenText( Helpers.DataDir( expectedName + ".txt" ) );
-			return s.ReadToEnd();
-		}
-        public static String DumpVertexList(IList<IVertex> vo)
-		{
-			int i = 0;
-			String res = String.Empty;
-			foreach ( IVertex v in vo )
-			{
-				res += v.Name;
-				if ( i++ != ( vo.Count - 1 ) )
-					res += ", ";
-			}
+    public class TopologicalSortAlgorithm : DepthFirstSearchVisitor
+    {
+        public TopologicalSortAlgorithm(IVertex start) : base(start) { }
 
-			return res;
-		}
-        public static String DumpListOfVertexLists(IList<IList<IVertex>> lvl)
-		{
-			int i = 0;
-			String res = String.Empty;
-            foreach (IList<IVertex> vl in lvl)
-			{
-				res += String.Format( "{0}", DumpVertexList( vl ) );
-				if ( i++ != ( lvl.Count - 1 ) )
-					res += "\r\n";
-			}
+        public TopologicalSortAlgorithm(IGraph graph) : base(graph) { }
 
-			return res;
-		}
-	}
+        protected override void BackEdge(IEdge edge)
+        {
+            throw new InvalidOperationException("Cycle detected on edge " + edge.Name);
+        }
+
+        protected override void FinishVertex(IVertex v)
+        {
+            visitOrder.Insert(0, v);
+        }
+    }
 }

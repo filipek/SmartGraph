@@ -19,7 +19,6 @@
 using SmartGraph.Engine.Common;
 using SmartGraph.Engine.Core.Interfaces;
 using SmartGraph.Engine.Dag;
-using SmartGraph.Engine.Dag.Interfaces;
 using SmartGraph.Engine.Nodes;
 using SmartGraph.Engine.Xml.Schema;
 using System;

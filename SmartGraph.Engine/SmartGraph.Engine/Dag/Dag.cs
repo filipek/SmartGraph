@@ -17,48 +17,39 @@
 #endregion
 
 using SmartGraph.Engine.Common;
-using SmartGraph.Engine.Dag.Interfaces;
+using SmartGraph.Engine.Dag;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace SmartGraph.Engine.Dag
 {
-	#region Directed Acyclic Graph
-	public abstract class DAGObject : IDAGObject
-	{
-		protected String name;
-		protected IGraph owner;
+    #region Directed Acyclic Graph
 
+    public abstract class DAGObject : IGraphObject
+	{
 		protected DAGObject(IGraph owner, String name)
 		{
-            Guard.AssertNotNullOrEmpty(name, "name");
+            Guard.AssertNotNullOrEmpty(name, nameof(name));
 
-			this.owner = owner;
-            this.name = name;
+			Owner = owner;
+            Name = name;
         }
-		
-		#region IDAGObject Members
 
-		public virtual String Name { get { return name; } }
+        public String Name { get; } = null;
 
-		public virtual IGraph Owner { get { return owner; } }
-
-		#endregion
+        public IGraph Owner { get; } = null;
 	}
 	public class Edge: DAGObject, IEdge
 	{
-		protected IVertex source;
-		protected IVertex target;
-
 		public Edge(IGraph owner, String name, IVertex source, IVertex target)
             : base(owner, name)
 		{
             Guard.AssertNotNull(source, "source");
             Guard.AssertNotNull(target, "target");
 
-			this.source = source;
-            this.target = target;
+			Source = source;
+            Target = target;
 
             source.OutEdges.Add(this);
             target.InEdges.Add(this);
@@ -71,29 +62,20 @@ namespace SmartGraph.Engine.Dag
             Guard.AssertNotNullOrEmpty(target, "target");
 
             var sourceEdge = owner.Vertices.First(x => x.Name == source);
-            this.source = sourceEdge;
+            Source = sourceEdge;
             var targetEdge = owner.Vertices.First(x => x.Name == target);
-            this.target = targetEdge;
+            Target = targetEdge;
 
             sourceEdge.OutEdges.Add(this);
             targetEdge.InEdges.Add(this);
         }
 
-		#region IEdge Members
+        public IVertex Source { get; } = null;
 
-		public virtual IVertex Source 
-		{
-			get { return source; }
-		}
+        public IVertex Target { get; } = null;
+    }
 
-		public virtual IVertex Target 
-		{
-			get { return target; }
-		}
-
-		#endregion
-	}
-	public class Vertex: DAGObject, IVertex
+    public class Vertex: DAGObject, IVertex
 	{
 		public Vertex(IGraph o, String n) : base(o, n)
         {
@@ -101,14 +83,10 @@ namespace SmartGraph.Engine.Dag
             OutEdges = new HashSet<IEdge>();
         }
 
-		#region IVertex Members
+        public ISet<IEdge> InEdges { get; } = null;
 
-        public virtual ISet<IEdge> InEdges { get; private set; }
-
-        public virtual ISet<IEdge> OutEdges { get; private set; }
-
-		#endregion
-	}
+        public ISet<IEdge> OutEdges { get; } = null;
+    }
 
 	public class DagGraph : DAGObject, IGraph
 	{
@@ -121,13 +99,10 @@ namespace SmartGraph.Engine.Dag
             Vertices = new HashSet<IVertex>();
         }
 
-		#region IGraph Members
+        public ISet<IVertex> Vertices { get; } = null;
 
-        public virtual ISet<IVertex> Vertices { get; private set; }
-
-        public virtual ISet<IEdge> Edges { get; private set; }
-
-		#endregion
+        public ISet<IEdge> Edges { get; } = null;
 	}
-	#endregion
+
+    #endregion
 }

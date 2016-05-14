@@ -16,11 +16,11 @@
 //
 #endregion
 
-using SmartGraph.Engine.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SmartGraph.Engine.Common;
 
 public static class Extensions
 {
@@ -53,7 +53,7 @@ public static class Extensions
     public static double NextBetween(this Random random, double min, double max)
     {
         Guard.AssertNotNull(random, nameof(random));
-        Guard.AssertSmallerThan(min, max, nameof(min) + nameof(max));
+        Guard.AssertSmallerThan(min, max, String.Format("{0}, {1}", nameof(min), nameof(max)));
 
         var r = random.NextDouble();
         return r * (max - min) + min;
@@ -62,7 +62,7 @@ public static class Extensions
     public static int NextBetween(this Random random, int min, int max)
     {
         Guard.AssertNotNull(random, nameof(random));
-        Guard.AssertSmallerThan(min, max, nameof(min) + nameof(max));
+        Guard.AssertSmallerThan(min, max, String.Format("{0}, {1}", nameof(min), nameof(max)));
 
         var r = random.Next();
         return min + r % (max - min + 1);

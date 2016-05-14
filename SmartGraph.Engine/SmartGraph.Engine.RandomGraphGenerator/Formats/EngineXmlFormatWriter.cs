@@ -16,7 +16,7 @@
 //
 #endregion
 
-using SmartGraph.Engine.Dag.Interfaces;
+using SmartGraph.Engine.Dag;
 using SmartGraph.Engine.Xml;
 using System;
 using System.IO;
