@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartGraph.Engine.TestApp",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartGraph.Engine.RandomGraphGenerator", "SmartGraph.Engine\SmartGraph.Engine.RandomGraphGenerator\SmartGraph.Engine.RandomGraphGenerator.csproj", "{EC412321-9C04-4D5A-8EC3-E460902AF04D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartGraph.Engine.Tests", "SmartGraph.Engine\SmartGraph.Engine.Tests\SmartGraph.Engine.Tests.csproj", "{8FB7F6AF-2C39-4577-ABD7-40C2C232E45C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +40,10 @@ Global
 		{EC412321-9C04-4D5A-8EC3-E460902AF04D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC412321-9C04-4D5A-8EC3-E460902AF04D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC412321-9C04-4D5A-8EC3-E460902AF04D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FB7F6AF-2C39-4577-ABD7-40C2C232E45C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FB7F6AF-2C39-4577-ABD7-40C2C232E45C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FB7F6AF-2C39-4577-ABD7-40C2C232E45C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FB7F6AF-2C39-4577-ABD7-40C2C232E45C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

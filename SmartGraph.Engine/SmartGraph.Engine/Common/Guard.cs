@@ -17,7 +17,6 @@
 #endregion
 
 using System;
-using System.Runtime.Serialization;
 
 namespace SmartGraph.Engine.Common
 {
@@ -44,6 +43,24 @@ namespace SmartGraph.Engine.Common
             if (param != null)
             {
                 throw new ArgumentException("Has to be null", paramName);
+            }
+        }
+
+        static public void AssertSmallerThan<T>(T smaller, T bigger, String paramName)
+            where T : IComparable<T>
+        {
+            if (smaller.CompareTo(bigger) >= 0)
+            {
+                throw new ArgumentException(String.Format("'{0}' is not smaller than '{1}'", smaller, bigger), paramName);
+            }
+        }
+
+        static public void AssertBiggerThan<T>(T bigger, T smaller, String paramName)
+            where T : IComparable<T>
+        {
+            if (bigger.CompareTo(smaller) <= 0)
+            {
+                throw new ArgumentException(String.Format("'{0}' is not bigger than '{1}'", bigger, smaller), paramName);
             }
         }
     }

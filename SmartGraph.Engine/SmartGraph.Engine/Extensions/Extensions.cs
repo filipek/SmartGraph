@@ -44,28 +44,42 @@ public static class Extensions
 
     public static void ForEach<T>(this IEnumerable<T> coll, Action<T> action)
     {
-        foreach (var item in coll) action(item);
+        Guard.AssertNotNull(coll, "coll");
+        Guard.AssertNotNull(action, "action");
+
+        foreach (var item in coll) { action(item); }
     }
 
     public static double NextBetween(this Random random, double min, double max)
     {
+        Guard.AssertNotNull(random, "random");
+        Guard.AssertSmallerThan(min, max, "min, max");
+
         var r = random.NextDouble();
         return r * (max - min) + min;
     }
 
     public static int NextBetween(this Random random, int min, int max)
     {
+        Guard.AssertNotNull(random, "random");
+        Guard.AssertSmallerThan(min, max, "min, max");
+
         var r = random.Next();
         return min + r % (max - min + 1);
     }
 
     public static bool None<T>(this IEnumerable<T> list)
     {
+        Guard.AssertNotNull(list, "list");
+
         return !list.Any();
     }
 
     public static bool None<T>(this IEnumerable<T> list, Func<T, bool> predicate)
     {
+        Guard.AssertNotNull(list, "list");
+        Guard.AssertNotNull(predicate, "predicate");
+
         return !list.Any(predicate);
     }
 }
