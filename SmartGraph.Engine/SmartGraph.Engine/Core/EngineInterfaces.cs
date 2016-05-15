@@ -1,4 +1,4 @@
-﻿#region Copyright (C) 2015 Filip Fodemski
+#region Copyright (C) 2015 Filip Fodemski
 // 
 // Copyright (c) 2015 Filip Fodemski
 // 
@@ -16,38 +16,59 @@
 //
 #endregion
 
+using SmartGraph.Engine.Dag;
 using System;
-using SmartGraph.Engine.Common;
-using SmartGraph.Engine.Pipeline.Interfaces;
+using System.Collections.Generic;
 
-namespace SmartGraph.Engine.Pipeline
+namespace SmartGraph.Engine.Core
 {
-    public abstract class PipelineNode<T> : MarshalByRefObject, IPipelineNode<T>
+    public interface IEngineBuilder
     {
-        protected virtual void SendNext(T msg)
-        {
-            if (Next != null)
-            {
-                Next.Produce(msg);
-            }
-        }
+        IGraph CreateGraph();
 
-        protected PipelineNode(String name)
-        {
-            Guard.AssertNotNull(name, nameof(name));
+        INode CreateNode(IVertex v);
 
-            Name = name;
-        }
+        IDictionary<String, String> GetInputs(IVertex v);
+    }
 
-        public abstract void Produce(T message);
+    public interface IEngineNode
+    {
+        INode Node { get; }
 
-        public virtual T Consume()
-        {
-            throw new NotImplementedException();
-        }
+        IVertex Vertex { get; }
 
-        public String Name { get; private set; }
+        IDictionary<String, IEngineNode> InputValues { get; }
 
-        public IPipelineNode<T> Next { get; set; }
+        Object Value { get; set; }
+
+        void MarkNodeAsDirty();
+
+        void Update();
+    }
+
+    public interface IEngine
+    {
+        String Name { get; }
+
+        IGraph Graph { get; }
+
+        IEngineNode this[String name] { get; }
+
+        void Execute(IEngineTask task);
+    }
+
+    public interface IEngineTask
+    {
+        IEngineNode DirtyNode { get; }
+
+        IList<IVertex> CalculationOrder { get; set; }
+
+        void Execute();
+    }
+
+    public interface IMeasurable
+    {
+        void StartMeasurementCapture();
+        void EndMeasurementCapture();
     }
 }

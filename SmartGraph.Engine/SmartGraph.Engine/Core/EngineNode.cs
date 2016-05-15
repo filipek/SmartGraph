@@ -44,7 +44,7 @@ namespace SmartGraph.Engine.Core
             Vertex = vertex;
             Node = node;
 
-            inputMap = engine.Builder.GetInputs(vertex);
+            inputMap = engine.GetInputs(vertex);
             
             InputValues = new Dictionary<String, IEngineNode>();
 
@@ -58,14 +58,6 @@ namespace SmartGraph.Engine.Core
                 ((IDisposable)Node).Dispose();
             }
         }
-
-        public IDictionary<String, IEngineNode> InputValues { get; private set; }
-
-        public IVertex Vertex { get; private set; }
-        
-        public INode Node { get; private set; }
-
-        public Object Value { get; set; }
 
         public void MarkNodeAsDirty()
 		{
@@ -107,5 +99,13 @@ namespace SmartGraph.Engine.Core
                 ((IActiveNode)Node).Activate();
             }
 		}
-	}
+
+        public IDictionary<String, IEngineNode> InputValues { get; private set; }
+
+        public IVertex Vertex { get; private set; }
+
+        public INode Node { get; private set; }
+
+        public Object Value { get; set; }
+    }
 }

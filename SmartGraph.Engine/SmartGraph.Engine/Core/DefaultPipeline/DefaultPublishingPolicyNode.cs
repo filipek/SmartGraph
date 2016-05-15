@@ -16,9 +16,9 @@
 //
 #endregion
 
+using System;
 using SmartGraph.Engine.Common;
 using SmartGraph.Engine.Pipeline;
-using System;
 
 // A pipeline is used to bind the various policies (pipeline nodes) together to
 // form the SmartGraph engine. Default implementation is provided for each:
@@ -32,11 +32,9 @@ using System;
 
 namespace SmartGraph.Engine.Core
 {
-    public sealed class DefaultPublishingPolicyNode : ThreadedProducerNode<IEngineTask>, IPublishingPipelineNode
+    internal sealed class DefaultPublishingPolicyNode : ThreadedPipelineNode<IEngineTask>, IPublishingPipelineNode
     {
         private IEngine engine;
-
-        #region AsynchProducerNodeBase override
 
         private void Publish(IEngineTask task)
         {
@@ -60,12 +58,10 @@ namespace SmartGraph.Engine.Core
             }
         }
 
-        #endregion
-
         public DefaultPublishingPolicyNode()
             : base(typeof(DefaultPublishingPolicyNode).Name)
         {
-            SetAction(Publish);
+            ThreadedAction = Publish;
         }
 
         public event CleanGraphEventHandler CleanGraphEvent;

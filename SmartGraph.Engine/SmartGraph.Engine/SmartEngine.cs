@@ -17,7 +17,6 @@
 #endregion
 
 using System;
-using System.Linq;
 using SmartGraph.Engine.Common;
 using SmartGraph.Engine.Core;
 using SmartGraph.Engine.Dag;
@@ -42,7 +41,7 @@ namespace SmartGraph.Engine
             Guard.AssertNotNull(builder, "builder");
 
             var pipeline = new DefaultEnginePipeline();
-            publisher = (IPublishingPipelineNode)pipeline.Nodes.Last();
+            publisher = pipeline.Publisher;
 
             core = new EngineCore(name, builder, pipeline);
             core.Bind();

@@ -35,8 +35,8 @@ using SmartGraph.Engine.Pipeline;
 
 namespace SmartGraph.Engine.Core
 {
-    public sealed class DefaultSchedulingPolicyNode : SimplePipelineNode<IEngineTask>, ISchedulingPipelineNode
-	{
+    internal sealed class DefaultSchedulingPolicyNode : PipelineNode<IEngineTask>, IEnginePipelineNode
+    {
         private class TopSortMap : Dictionary<String, IList<IVertex>>
         {
             public TopSortMap(int capacity) : base(capacity) {}

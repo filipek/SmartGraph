@@ -18,16 +18,12 @@
 
 using System.Collections.Generic;
 
+/// <summary>
+/// This design was inspired by the ACE Toolkit, read more at
+/// http://www.cs.wustl.edu/~schmidt/PDF/C++-USENIX-94.pdf
+/// </summary>
 namespace SmartGraph.Engine.Pipeline.Interfaces
 {
-	// This set of interfaces provides a framework for
-	// managing pipelines of processing. A IPipeline
-	// contains an ordered IList of IPipelineModule's.
-	// Each pipeline module contains two processing tasks i.e. 
-	// producer and consumer.
-	// This design was inspired by the ACE Toolkit, read more at
-	// http://www.cs.wustl.edu/~schmidt/PDF/C++-USENIX-94.pdf
-
 	/// <summary>
 	/// A message consumer.
 	/// </summary>
@@ -71,19 +67,4 @@ namespace SmartGraph.Engine.Pipeline.Interfaces
         /// </summary>
         IPipelineNode<T> Next { get; set; }
     }
-
-	/// <summary>
-	/// IPipeline must forward its implementation
-	/// of IMessageBus to the first (0th) item of the
-	/// IList returned from Modules, for both IMessageConsumer
-	/// and IMessageProducer. The IPipelineComponent.Next property
-	/// returns the next IPipeline in the pipeline.
-	/// </summary>
-    public interface IPipeline<T> : IPipelineNode<T>
-	{
-		/// <summary>
-		/// Ordered collection of IPipelineModule's
-		/// </summary>
-        IList<IPipelineNode<T>> Nodes { get; }
-	}
 }

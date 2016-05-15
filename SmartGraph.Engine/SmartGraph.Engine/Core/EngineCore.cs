@@ -18,21 +18,20 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using SmartGraph.Engine.Dag;
 
 namespace SmartGraph.Engine.Core
 {
     internal class EngineCore : MarshalByRefObject, IEngine, IDisposable
     {
-        private readonly Object firstLoadSyncRoot = new Object();
-        private int countOfFirstLoadsOutstanding;
-        private bool allFirstLoadsDone;
-
-        private readonly String engineName;
+        private readonly object firstLoadSyncRoot = new object();
+        private readonly string engineName;
         private readonly IGraph engineGraph;
         private readonly IEnginePipeline enginePipeline;
         private readonly IDictionary<String, EngineNode> engineNodeMap;
+        private readonly IEngineBuilder engineBuilder;
+        private int countOfFirstLoadsOutstanding;
+        private bool allFirstLoadsDone;
 
         private bool CanExecute(IEngineTask task)
         {
@@ -54,48 +53,39 @@ namespace SmartGraph.Engine.Core
             return doProduce;
         }
 
-        internal IEngineBuilder Builder { get; private set; }
+        internal IDictionary<string, string> GetInputs(IVertex v)
+        {
+            return engineBuilder.GetInputs(v);
+        }
+
+        internal INode GetNode(IVertex v)
+        {
+            return engineNodeMap[v.Name].Node;
+        }
 
         internal void MarkNodeAsDirty(EngineNode engineNode)
         {
             Execute(new DefaultEngineTask(this, engineNode));
         }
 
-        internal EngineCore(String name, IEngineBuilder builder, IEnginePipeline pipeline)
+        internal EngineCore(string name, IEngineBuilder builder, IEnginePipeline pipeline)
         {
             engineName = name;
-            Builder = builder;
+            engineBuilder = builder;
             engineGraph = builder.CreateGraph();
             enginePipeline = pipeline;
-            engineNodeMap = new Dictionary<String, EngineNode>();
+            engineNodeMap = new Dictionary<string, EngineNode>();
             countOfFirstLoadsOutstanding = 0;
             allFirstLoadsDone = false;
 
             EngineCounters.Create();
         }
 
-        public String Name
-        {
-            get { return engineName; }
-        }
-
-        public IGraph Graph { get { return engineGraph; } }
-
-        public IEngineNode this[String nodeName]
-        {
-            get { return engineNodeMap[nodeName]; }
-        }
-
-        public IEnginePipeline Pipeline
-        {
-            get { return enginePipeline; }
-        }
-
         public void Execute(IEngineTask task)
         {
             if (CanExecute(task))
             {
-                enginePipeline.Produce(task);
+                enginePipeline.EventHandler.Produce(task);
             }
         }
 
@@ -105,7 +95,7 @@ namespace SmartGraph.Engine.Core
 
             foreach (var vertex in engineGraph.Vertices)
             {
-                var node = Builder.CreateNode(vertex);
+                var node = engineBuilder.CreateNode(vertex);
                 var nodeName = node.Name;
 
                 var engineNode = new EngineNode(this, node, vertex);
@@ -119,26 +109,35 @@ namespace SmartGraph.Engine.Core
                 }
             }
 
-            enginePipeline.Nodes.ForEach(p => p.Bind(this));
+            enginePipeline.Bind(this);
         }
 
         public void Start()
         {
             EngineCounters.Reset();
-
-            // Back to front.
-            enginePipeline.Nodes.Reverse().ForEach(p => p.Start());
+            enginePipeline.Start();
         }
 
         public void Stop()
         {
-            // Front to back.
-            enginePipeline.Nodes.ForEach(p => p.Stop());
+            enginePipeline.Stop();
         }
 
         public void Dispose()
         {
             EngineCounters.Dispose();
+        }
+
+        public string Name
+        {
+            get { return engineName; }
+        }
+
+        public IGraph Graph { get { return engineGraph; } }
+
+        public IEngineNode this[string nodeName]
+        {
+            get { return engineNodeMap[nodeName]; }
         }
     }
 }

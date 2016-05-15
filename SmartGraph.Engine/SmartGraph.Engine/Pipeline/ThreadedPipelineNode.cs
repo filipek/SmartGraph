@@ -23,48 +23,13 @@ using SmartGraph.Engine.Pipeline.Interfaces;
 
 namespace SmartGraph.Engine.Pipeline
 {
-    public abstract class ThreadedProducerNode<T> : SimplePipelineNode<T>
+    public class ThreadedPipelineNode<T> : PipelineNode<T>
         where T : class
     {
         private readonly IMessageBus<T> messageBus;
-        private Action<T> threadedAction;
         private Thread thread;
 
-        public ThreadedProducerNode(String name)
-            : base(name)
-        {
-            Guard.AssertNotNullOrEmpty(name, nameof(name));
-
-            messageBus = new MessageBus<T>();
-        }
-
-        protected void SetAction(Action<T> threadedAction)
-        {
-            this.threadedAction = threadedAction;
-        }
-
-        public override void Produce(T message)
-        {
-            messageBus.Produce(message);
-        }
-
-        public virtual void Start()
-        {
-            thread = new Thread(new ThreadStart(ThreadFunc));
-            thread.Start();
-        }
-
-        public virtual void Stop()
-        {
-            if (thread != null)
-            {
-                thread.Interrupt();
-                thread.Join();
-                thread = null;
-            }
-        }
-
-        private void ThreadFunc()
+        private void ThreadAction()
         {
             do
             {
@@ -77,17 +42,23 @@ namespace SmartGraph.Engine.Pipeline
                 }
                 catch (Exception e)
                 {
-                    Diagnostics.DebugException(e, "Doing a bus Consume");
+                    Diagnostics.DebugException(e, "Consuming task");
                 }
 
-                // Produce
-                try
+                if (ThreadedAction != null)
                 {
-                    threadedAction(message);
+                    try
+                    {
+                        ThreadedAction(message);
+                    }
+                    catch (Exception e)
+                    {
+                        Diagnostics.DebugException(e, "Processing task");
+                    }
                 }
-                catch (Exception e)
+                else
                 {
-                    Diagnostics.DebugException(e, "Processing");
+                    throw new InvalidOperationException("Cannot process task - ThreadedAction is not set.");
                 }
 
                 // SendNext
@@ -97,9 +68,40 @@ namespace SmartGraph.Engine.Pipeline
                 }
                 catch (Exception e)
                 {
-                    Diagnostics.DebugException(e, "Doing a SendNext");
+                    Diagnostics.DebugException(e, "Sending task to next");
                 }
             } while (true);
         }
+
+        public ThreadedPipelineNode(String name)
+            : base(name)
+        {
+            Guard.AssertNotNullOrEmpty(name, nameof(name));
+
+            messageBus = new MessageBus<T>();
+        }
+
+        public override void Produce(T message)
+        {
+            messageBus.Produce(message);
+        }
+
+        public void Start()
+        {
+            thread = new Thread(new ThreadStart(ThreadAction));
+            thread.Start();
+        }
+
+        public void Stop()
+        {
+            if (thread != null)
+            {
+                thread.Interrupt();
+                thread.Join();
+                thread = null;
+            }
+        }
+
+        public Action<T> ThreadedAction { get; set; }
     }
 }

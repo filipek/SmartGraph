@@ -16,25 +16,34 @@
 //
 #endregion
 
-using System;
+using SmartGraph.Engine.Pipeline.Interfaces;
+using System.Collections.Generic;
 
 namespace SmartGraph.Engine.Core
 {
-    public class InvariantNodeAttribute : Attribute { }
-
-    public interface INode
+    public interface IEnginePipeline
     {
-        String Name { get; }
+        void Bind(IEngine engine);
+        void Start();
+        void Stop();
 
-        void Bind(IEngineNode host);
-
-        void Update();
+        IEnginePipelineNode EventHandler { get; }
+        IPublishingPipelineNode Publisher { get; }
     }
 
-    public interface IActiveNode : INode
-    {
-        void MarkNodeAsDirty();
+    public interface IEnginePipelineNode : IPipelineNode<IEngineTask>
+	{
+		void Bind(IEngine engine);
+		void Start();
+		void Stop();
+	}
 
-        void Activate();
-    }
+    public delegate void CleanNodeEventHandler(IEngine engine, INode node);
+    public delegate void CleanGraphEventHandler(IEngine engine);
+
+    public interface IPublishingPipelineNode : IEnginePipelineNode
+	{
+		event CleanGraphEventHandler CleanGraphEvent;
+		event CleanNodeEventHandler CleanNodeEvent;
+	}
 }

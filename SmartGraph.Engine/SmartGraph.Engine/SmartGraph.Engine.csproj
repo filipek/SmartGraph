@@ -89,13 +89,13 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Core\EngineCounters.cs" />
-    <Compile Include="Core\Interfaces\EnginePipeline.cs" />
-    <Compile Include="Core\Interfaces\EngineNode.cs" />
+    <Compile Include="Core\DefaultPipeline\EnginePipelineInterfaces.cs" />
+    <Compile Include="Core\EngineNodeInterfaces.cs" />
     <Compile Include="Core\NodeBase.cs" />
     <Compile Include="Core\DefaultPipeline\DefaultSchedulingPolicyNode.cs" />
     <Compile Include="Core\DefaultPipeline\DefaultCalculationPolicyNode.cs" />
     <Compile Include="Core\DefaultPipeline\DefaultPublishingPolicyNode.cs" />
-    <Compile Include="Core\DefaultEnginePipeline.cs" />
+    <Compile Include="Core\DefaultPipeline\DefaultEnginePipeline.cs" />
     <Compile Include="Dag\Algorithms\CycleDetectedException.cs" />
     <Compile Include="Dag\Algorithms\DepthFirstSearchAlgorithm.cs" />
     <Compile Include="Dag\Algorithms\EquivalenceClassesAlgorithm.cs" />
@@ -105,13 +105,13 @@
     <Compile Include="Common\Guard.cs" />
     <Compile Include="Dag\Dag.cs" />
     <Compile Include="Dag\Interfaces.cs" />
-    <Compile Include="Pipeline\ThreadedProducerNode.cs" />
+    <Compile Include="Pipeline\ThreadedPipelineNode.cs" />
     <Compile Include="Pipeline\MessageBus.cs" />
     <Compile Include="Pipeline\PipelineNode.cs" />
     <Compile Include="Xml\EngineXml.cs">
       <DependentUpon>EngineXml.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Core\Interfaces\EngineCore.cs">
+    <Compile Include="Core\EngineInterfaces.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Extensions\Extensions.cs" />

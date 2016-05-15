@@ -16,9 +16,9 @@
 //
 #endregion
 
-using System;
-using SmartGraph.Engine.Common;
-using SmartGraph.Engine.Pipeline;
+using System.Collections.Generic;
+using System.Linq;
+using SmartGraph.Engine.Pipeline.Interfaces;
 
 // A pipeline is used to bind the various policies (pipeline nodes) together to
 // form the SmartGraph engine. Default implementation is provided for each:
@@ -32,44 +32,53 @@ using SmartGraph.Engine.Pipeline;
 
 namespace SmartGraph.Engine.Core
 {
-    internal sealed class DefaultCalculationPolicyNode : ThreadedPipelineNode<IEngineTask>, IEnginePipelineNode
+    internal class DefaultEnginePipeline : IEnginePipeline
     {
-		private IEngine engine;
+        private readonly IList<IEnginePipelineNode> enginePipelineNodes = CreateEnginePipeline();
 
-        private static void Calculate(IEngineTask task)
+        private static IList<IEnginePipelineNode> CreateEnginePipeline()
         {
-            if (task is IMeasurable)
+            var nodes = new List<IPipelineNode<IEngineTask>>
             {
-                ((IMeasurable)task).StartMeasurementCapture();
-            }
+                new DefaultEventPolicyNode(),
+                new DefaultSchedulingPolicyNode(),
+                new DefaultCalculationPolicyNode(),
+                new DefaultPublishingPolicyNode()
+            };
 
-            try
-            {
-                task.Execute();
-            }
-            catch (Exception e)
-            {
-                Diagnostics.WriteLine(task, String.Format(@"unexpected exception= {0}", e.Message));
-            }
-            finally
-            {
-                if (task is IMeasurable)
-                {
-                    ((IMeasurable)task).EndMeasurementCapture();
-                }
-            }
-        }
+            nodes[0].Next = nodes[1];
+            nodes[1].Next = nodes[2];
+            nodes[2].Next = nodes[3];
 
-        public DefaultCalculationPolicyNode()
-            : base(typeof(DefaultCalculationPolicyNode).Name)
-        {
-            ThreadedAction = Calculate;
+            return nodes.Cast<IEnginePipelineNode>().ToList();
         }
 
         public void Bind(IEngine engine)
 		{
-            Guard.AssertNotNull(engine, "engine");
-            this.engine = engine;
+            enginePipelineNodes.ForEach(n => n.Bind(engine));
 		}
+
+        public void Start()
+        {
+            // Start back to front so that when an event is processed it can be published.
+            enginePipelineNodes.Reverse().ForEach(n => n.Start());
+        }
+
+        public void Stop()
+        {
+            enginePipelineNodes.ForEach(n => n.Stop());
+        }
+
+        public string Name { get; private set; }
+
+        public IEnginePipelineNode EventHandler
+        {
+            get { return enginePipelineNodes.First(); }
+        }
+
+        public IPublishingPipelineNode Publisher
+        {
+            get { return (IPublishingPipelineNode)enginePipelineNodes.Last(); }
+        }
     }
 }

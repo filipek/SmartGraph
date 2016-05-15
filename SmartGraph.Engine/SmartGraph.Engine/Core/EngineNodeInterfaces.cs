@@ -1,4 +1,4 @@
-﻿#region Copyright (C) 2015 Filip Fodemski
+#region Copyright (C) 2015 Filip Fodemski
 // 
 // Copyright (c) 2015 Filip Fodemski
 // 
@@ -17,37 +17,24 @@
 #endregion
 
 using System;
-using SmartGraph.Engine.Common;
-using SmartGraph.Engine.Pipeline.Interfaces;
+using System.Collections.Generic;
 
-namespace SmartGraph.Engine.Pipeline
+namespace SmartGraph.Engine.Core
 {
-    public abstract class PipelineNode<T> : MarshalByRefObject, IPipelineNode<T>
+    public class InvariantNodeAttribute : Attribute { }
+
+    public interface INode
     {
-        protected virtual void SendNext(T msg)
-        {
-            if (Next != null)
-            {
-                Next.Produce(msg);
-            }
-        }
+        void Bind(IEngineNode host);
+        void Update();
 
-        protected PipelineNode(String name)
-        {
-            Guard.AssertNotNull(name, nameof(name));
+        String Name { get; }
+    }
 
-            Name = name;
-        }
+    public interface IActiveNode : INode
+    {
+        void MarkNodeAsDirty();
 
-        public abstract void Produce(T message);
-
-        public virtual T Consume()
-        {
-            throw new NotImplementedException();
-        }
-
-        public String Name { get; private set; }
-
-        public IPipelineNode<T> Next { get; set; }
+        void Activate();
     }
 }
