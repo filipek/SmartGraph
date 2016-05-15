@@ -105,9 +105,9 @@
     <Compile Include="Common\Guard.cs" />
     <Compile Include="Dag\Dag.cs" />
     <Compile Include="Dag\Interfaces.cs" />
-    <Compile Include="Pipeline\SimpleAsyncProducerNodeBase.cs" />
-    <Compile Include="Pipeline\SimpleMessageBus.cs" />
-    <Compile Include="Pipeline\SimplePipelineComponentBase.cs" />
+    <Compile Include="Pipeline\ThreadedProducerNode.cs" />
+    <Compile Include="Pipeline\MessageBus.cs" />
+    <Compile Include="Pipeline\PipelineNode.cs" />
     <Compile Include="Xml\EngineXml.cs">
       <DependentUpon>EngineXml.xsd</DependentUpon>
     </Compile>
@@ -121,7 +121,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Common\Diagnostics.cs" />
-    <Compile Include="Pipeline\SimplePipeline.cs" />
     <Compile Include="Core\DefaultPipeline\DefaultEventPolicyNode.cs">
       <SubType>Code</SubType>
     </Compile>

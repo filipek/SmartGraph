@@ -1,4 +1,4 @@
-#region Copyright (C) 2015 Filip Fodemski
+﻿#region Copyright (C) 2015 Filip Fodemski
 // 
 // Copyright (c) 2015 Filip Fodemski
 // 
@@ -16,34 +16,38 @@
 //
 #endregion
 
-using SmartGraph.Engine.Pipeline;
+using System;
+using SmartGraph.Engine.Common;
+using SmartGraph.Engine.Pipeline.Interfaces;
 
-namespace SmartGraph.Engine.Core
+namespace SmartGraph.Engine.Pipeline
 {
-    /// <summary>
-    /// Represents the entry point to the Engine processing pipeline. It does not
-    /// do any processing on its own and forwards all the messages it receives to
-    /// the next (scheduling) component.
-    /// </summary>
-    public sealed class DefaultEventPolicyNode : SimplePipelineNode<IEngineTask>, IEventPipelineNode
-	{
-        private IEngine engine;
+    public abstract class SimplePipelineNode<T> : MarshalByRefObject, IPipelineNode<T>
+    {
+        protected virtual void SendNext(T msg)
+        {
+            if (Next != null)
+            {
+                Next.Produce(msg);
+            }
+        }
 
-        public DefaultEventPolicyNode() : base(typeof(DefaultEventPolicyNode).Name) { }
+        protected SimplePipelineNode(String name)
+        {
+            Guard.AssertNotNull(name, nameof(name));
 
-		public void Bind(IEngine engineCore)
-		{
-			engine = engineCore;
-		}
+            Name = name;
+        }
 
-		public void Start() {}
+        public abstract void Produce(T message);
 
-		public void Stop() {}
+        public virtual T Consume()
+        {
+            throw new NotImplementedException();
+        }
 
-        public override void Produce(IEngineTask message)
-		{
-            EngineCounters.AddDirtyNodeEvent();
-			SendNext(message);
-		}
-	}
+        public String Name { get; private set; }
+
+        public IPipelineNode<T> Next { get; set; }
+    }
 }

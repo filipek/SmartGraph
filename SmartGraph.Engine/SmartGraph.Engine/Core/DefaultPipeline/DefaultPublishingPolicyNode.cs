@@ -32,13 +32,13 @@ using System;
 
 namespace SmartGraph.Engine.Core
 {
-    public sealed class DefaultPublishingPolicyNode : SimpleAsyncProducerNodeBase<IEngineTask>, IPublishingPipelineNode
+    public sealed class DefaultPublishingPolicyNode : ThreadedProducerNode<IEngineTask>, IPublishingPipelineNode
     {
         private IEngine engine;
 
         #region AsynchProducerNodeBase override
 
-        protected override void InternalProduce(IEngineTask task)
+        private void Publish(IEngineTask task)
         {
             if (CleanNodeEvent != null)
             {
@@ -62,7 +62,11 @@ namespace SmartGraph.Engine.Core
 
         #endregion
 
-        public DefaultPublishingPolicyNode() : base(typeof(DefaultPublishingPolicyNode).Name) { }
+        public DefaultPublishingPolicyNode()
+            : base(typeof(DefaultPublishingPolicyNode).Name)
+        {
+            SetAction(Publish);
+        }
 
         public event CleanGraphEventHandler CleanGraphEvent;
         public event CleanNodeEventHandler CleanNodeEvent;

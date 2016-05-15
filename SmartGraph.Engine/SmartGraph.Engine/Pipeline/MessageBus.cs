@@ -1,4 +1,4 @@
-#region Copyright (C) 2015 Filip Fodemski
+﻿#region Copyright (C) 2015 Filip Fodemski
 // 
 // Copyright (c) 2015 Filip Fodemski
 // 
@@ -16,34 +16,37 @@
 //
 #endregion
 
-using SmartGraph.Engine.Pipeline;
+using System.Collections.Concurrent;
+using SmartGraph.Engine.Pipeline.Interfaces;
 
-namespace SmartGraph.Engine.Core
+namespace SmartGraph.Engine.Pipeline
 {
-    /// <summary>
-    /// Represents the entry point to the Engine processing pipeline. It does not
-    /// do any processing on its own and forwards all the messages it receives to
-    /// the next (scheduling) component.
-    /// </summary>
-    public sealed class DefaultEventPolicyNode : SimplePipelineNode<IEngineTask>, IEventPipelineNode
-	{
-        private IEngine engine;
+    public class MessageBus<T> : IMessageBus<T>
+    {
+        /// <summary>
+        /// Represents a blocking thread-safe collection which enforces the FIFO order
+        /// on elements.
+        /// </summary>
+        private class MessageQueue<T> : BlockingCollection<T>
+        {
+            public MessageQueue() : base(new ConcurrentQueue<T>()) { }
+        }
 
-        public DefaultEventPolicyNode() : base(typeof(DefaultEventPolicyNode).Name) { }
+        private readonly MessageQueue<T> messageQueue;
 
-		public void Bind(IEngine engineCore)
-		{
-			engine = engineCore;
-		}
+        public MessageBus()
+        {
+            messageQueue = new MessageQueue<T>();
+        }
 
-		public void Start() {}
+        public T Consume()
+        {
+            return messageQueue.Take();
+        }
 
-		public void Stop() {}
-
-        public override void Produce(IEngineTask message)
-		{
-            EngineCounters.AddDirtyNodeEvent();
-			SendNext(message);
-		}
-	}
+        public void Produce(T message)
+        {
+            messageQueue.Add(message);
+        }
+    }
 }

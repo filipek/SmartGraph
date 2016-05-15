@@ -32,13 +32,22 @@ using SmartGraph.Engine.Pipeline;
 
 namespace SmartGraph.Engine.Core
 {
-    public sealed class DefaultCalculationPolicyNode : SimpleAsyncProducerNodeBase<IEngineTask>, ICalculationPipelineNode
+    public sealed class DefaultCalculationPolicyNode : ThreadedProducerNode<IEngineTask>, ICalculationPipelineNode
 	{
-		private IEngine	engine;
+		private IEngine engine;
 
-        #region AsynchProducerNodeBase override
+		public DefaultCalculationPolicyNode()
+            : base(typeof(DefaultCalculationPolicyNode).Name) {}
 
-        protected override void InternalProduce(IEngineTask task)
+		public void Bind(IEngine engine)
+		{
+            Guard.AssertNotNull(engine, "engine");
+            this.engine = engine;
+
+            SetAction(Calculate);
+		}
+
+        private void Calculate(IEngineTask task)
         {
             if (task is IMeasurable)
             {
@@ -51,8 +60,7 @@ namespace SmartGraph.Engine.Core
             }
             catch (Exception e)
             {
-                Diagnostics.WriteLine(this,
-                    String.Format(@"unexpected exception= {0}", e.Message));
+                Diagnostics.WriteLine(task, String.Format(@"unexpected exception= {0}", e.Message));
             }
             finally
             {
@@ -63,15 +71,5 @@ namespace SmartGraph.Engine.Core
             }
         }
 
-        #endregion
-
-		public DefaultCalculationPolicyNode()
-            : base(typeof(DefaultCalculationPolicyNode).Name) {}
-
-		public void Bind(IEngine engine)
-		{
-            Guard.AssertNotNull(engine, "engine");
-            this.engine = engine;
-		}
-	}
+    }
 }
