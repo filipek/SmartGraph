@@ -24,24 +24,24 @@ using SmartGraph.Engine.Pipeline.Interfaces;
 
 namespace SmartGraph.Engine.Pipeline
 {
-    public class SimplePipeline<T> : SimplePipelineComponentBase<T>, IPipeline<T>
+    public class SimplePipeline<T> : SimplePipelineComponent<T>, IPipeline<T>
 	{
-        protected IPipelineModule<T> Head
+        protected IPipelineNode<T> Head
 		{
-            get { return Modules.First(); }
+            get { return Nodes.First(); }
 		}
 
-        public SimplePipeline(String name, IList<IPipelineModule<T>> modules)
+        public SimplePipeline(String name, IList<IPipelineNode<T>> nodes)
             : base(name)
 		{
-            Guard.AssertNotNull(modules, "modules");
+            Guard.AssertNotNull(nodes, "nodes");
 
-            if (modules.Count == 0)
+            if (nodes.Count == 0)
             {
                 throw new ArgumentException("Pipeline cannot be empty");
             }
 
-            Modules = modules;
+            Nodes = nodes;
 		}
 
         public override T Consume()
@@ -54,6 +54,6 @@ namespace SmartGraph.Engine.Pipeline
 			Head.Produce(message);
 		}
 
-        public IList<IPipelineModule<T>> Modules { get; private set; }
+        public IList<IPipelineNode<T>> Nodes { get; private set; }
 	}
 }

@@ -95,7 +95,6 @@
     <Compile Include="Core\DefaultPipeline\DefaultSchedulingPolicyNode.cs" />
     <Compile Include="Core\DefaultPipeline\DefaultCalculationPolicyNode.cs" />
     <Compile Include="Core\DefaultPipeline\DefaultPublishingPolicyNode.cs" />
-    <Compile Include="Core\DefaultPipelineModules.cs" />
     <Compile Include="Core\DefaultEnginePipeline.cs" />
     <Compile Include="Dag\Algorithms\CycleDetectedException.cs" />
     <Compile Include="Dag\Algorithms\DepthFirstSearchAlgorithm.cs" />
@@ -109,7 +108,6 @@
     <Compile Include="Pipeline\SimpleAsyncProducerNodeBase.cs" />
     <Compile Include="Pipeline\SimpleMessageBus.cs" />
     <Compile Include="Pipeline\SimplePipelineComponentBase.cs" />
-    <Compile Include="Pipeline\SimplePipelineModule.cs" />
     <Compile Include="Xml\EngineXml.cs">
       <DependentUpon>EngineXml.xsd</DependentUpon>
     </Compile>

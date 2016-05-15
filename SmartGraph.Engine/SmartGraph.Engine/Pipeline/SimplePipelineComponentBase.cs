@@ -21,10 +21,10 @@ using SmartGraph.Engine.Pipeline.Interfaces;
 
 namespace SmartGraph.Engine.Pipeline
 {
-    public abstract class SimplePipelineComponentBase<T> : MarshalByRefObject, IPipelineComponent<T>
+    public abstract class SimplePipelineComponent<T> : MarshalByRefObject, IPipelineNode<T>
     {
         private IPipelineNode<T> moduleSibling;
-        private IPipelineComponent<T> next;
+        private IPipelineNode<T> next;
 
         protected virtual void SendNext(T msg)
         {
@@ -34,7 +34,7 @@ namespace SmartGraph.Engine.Pipeline
             }
         }
 
-        protected SimplePipelineComponentBase(String name)
+        protected SimplePipelineComponent(String name)
         {
             Name = name;
         }
@@ -54,7 +54,7 @@ namespace SmartGraph.Engine.Pipeline
 
         public String Name { get; private set; }
 
-        public virtual IPipelineComponent<T> Next
+        public virtual IPipelineNode<T> Next
         {
             get { return next; }
             set { next = value; }

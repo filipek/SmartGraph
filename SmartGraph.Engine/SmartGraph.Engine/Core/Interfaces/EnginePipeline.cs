@@ -21,12 +21,15 @@ using System.Collections.Generic;
 
 namespace SmartGraph.Engine.Core
 {
-    public interface IEnginePipeline : IPipeline<IEngineTask>
-	{
-		IList<IEnginePipelineNode> Nodes { get; }
+    public interface IEnginePipeline
+    {
+        void Bind(IEngine engine);
 
-		void Bind(IEngine engine);
-	}
+        void Produce(IEngineTask message);
+
+        IList<IEnginePipelineNode> Nodes { get; }
+        IPublishingPipelineNode Publisher { get; }
+    }
 
     public interface IEnginePipelineNode : IPipelineNode<IEngineTask>
 	{

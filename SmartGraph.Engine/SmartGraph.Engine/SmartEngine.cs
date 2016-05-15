@@ -37,25 +37,17 @@ namespace SmartGraph.Engine
         private State state;
 
         public SmartEngine(String name, IEngineBuilder builder)
-            : this(name, builder, new DefaultEnginePipeline()) {}
-
-		public SmartEngine(String name, IEngineBuilder builder, IEnginePipeline pipeline)
 		{
             Guard.AssertNotNullOrEmpty(name, "name");
             Guard.AssertNotNull(builder, "builder");
-            Guard.AssertNotNull(pipeline, "pipeline");
 
-            var modules = pipeline.Modules;
-            if (modules == null || modules.Count == 0)
-            {
-                throw new ArgumentException("Engine pipeline is empty");
-            }
+            var pipeline = new DefaultEnginePipeline();
+            publisher = (IPublishingPipelineNode)pipeline.Nodes.Last();
 
-			core = new EngineCore(name, builder, pipeline);
+            core = new EngineCore(name, builder, pipeline);
             core.Bind();
 
             state = State.Stopped;
-            publisher = core.Pipeline.Nodes.Last() as IPublishingPipelineNode;
         }
 
         public void Dispose()

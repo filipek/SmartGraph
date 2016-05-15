@@ -18,7 +18,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using SmartGraph.Engine.Pipeline;
 using SmartGraph.Engine.Pipeline.Interfaces;
 
 // A pipeline is used to bind the various policies (pipeline nodes) together to
@@ -33,38 +32,9 @@ using SmartGraph.Engine.Pipeline.Interfaces;
 
 namespace SmartGraph.Engine.Core
 {
-    public class DefaultEnginePipeline : SimplePipeline<IEngineTask>, IEnginePipeline
-	{
-        protected readonly IList<IPipelineNode<IEngineTask>> enginePipelineNodes;
-
-        private static IList<IPipelineModule<IEngineTask>> EnginePipeline
-        {
-            get
-            {
-                var modules = new List<IPipelineModule<IEngineTask>>
-                {
-		            new DefaultEventModule(),
-			        new DefaultSchedulingModule(),
-			        new DefaultCalculationModule(),
-			        new DefaultPublishingModule()
-                };
-
-                modules[0].Producer.Next = modules[1].Producer;
-                modules[1].Producer.Next = modules[2].Producer;
-                modules[2].Producer.Next = modules[3].Producer;
-
-                return modules;
-            }
-        }
-
-        public DefaultEnginePipeline()
-            : base("EnginePipeline", EnginePipeline)
-		{
-            enginePipelineNodes = new List<IPipelineNode<IEngineTask>>()
-            {
-			    Modules[0].Producer, Modules[1].Producer, Modules[2].Producer, Modules[3].Producer
-            };
-		}
+    public class DefaultEnginePipeline : IEnginePipeline
+    {
+        protected readonly IList<IEnginePipelineNode> enginePipelineNodes = CreateEnginePipeline();
 
 		public void Bind(IEngine engine)
 		{
@@ -74,9 +44,41 @@ namespace SmartGraph.Engine.Core
             }
 		}
 
+        public void Produce(IEngineTask message)
+        {
+            enginePipelineNodes.First().Produce(message);
+        }
+
+        private static IList<IEnginePipelineNode> CreateEnginePipeline()
+        {
+            var nodes = new List<IPipelineNode<IEngineTask>>
+            {
+                new DefaultEventPolicyNode(),
+                new DefaultSchedulingPolicyNode(),
+                new DefaultCalculationPolicyNode(),
+                new DefaultPublishingPolicyNode()
+            };
+
+            nodes[0].Next = nodes[1];
+            nodes[1].Next = nodes[2];
+            nodes[2].Next = nodes[3];
+
+            return nodes.Cast<IEnginePipelineNode>().ToList();
+        }
+
+        public string Name { get; private set; }
+
         public IList<IEnginePipelineNode> Nodes
         {
             get { return enginePipelineNodes.Cast<IEnginePipelineNode>().ToList(); }
         }
-	}
+
+        public IPublishingPipelineNode Publisher
+        {
+            get
+            {
+                return (IPublishingPipelineNode)enginePipelineNodes.Last();
+            }
+        }
+    }
 }

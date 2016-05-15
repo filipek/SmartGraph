@@ -23,7 +23,7 @@ using SmartGraph.Engine.Pipeline.Interfaces;
 
 namespace SmartGraph.Engine.Pipeline
 {
-    public abstract class SimpleAsyncProducerNodeBase<T> : SimplePipelineComponentBase<T>
+    public abstract class SimpleAsyncProducerNodeBase<T> : SimplePipelineComponent<T>
         where T : class
     {
         private Thread thread;

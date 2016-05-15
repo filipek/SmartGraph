@@ -58,54 +58,19 @@ namespace SmartGraph.Engine.Pipeline.Interfaces
     public interface IMessageBus<T> : IMessageProducer<T>, IMessageConsumer<T> { }
 
 	/// <summary>
-	/// Can be used as an element in an IPipeline
-	/// </summary>
-    public interface IPipelineComponent<T> : IMessageBus<T>
-	{
-		/// <summary>
-		/// Next item in an IPipeline
-		/// </summary>
-        IPipelineComponent<T> Next { get; set; }
-	}
-
-	/// <summary>
 	/// A pipeline node can be a publisher
 	/// (called on its Send methods) or
 	/// a consumer (called on its Receive methods).
 	/// The IPipelineComponent.Next property returns the next
 	/// IPipelineNode in the pipeline.
 	/// </summary>
-    public interface IPipelineNode<T> : IPipelineComponent<T>
+    public interface IPipelineNode<T> : IMessageBus<T>
 	{
-		/// <summary>
-		/// Returns this node's sibling in an IPipelineModule.
-		/// </summary>
-        IPipelineNode<T> ModuleSibling { get; }
-	}
-
-	/// <summary>
-	/// This is a pipeline processing layer. Application functionality
-	/// is defined in here. IPipelineModule must forward its implementation
-	/// of IMessageBus to Consumer (read Receive side) and Producer
-	/// (Send side). Uni-directional pipelines will have one of their
-	/// Consumer or Publisher node instances undefined (i.e. null).
-	/// The IPipelineComponent.Next property returns the next
-	/// IPipelineModule in the pipeline.
-	/// </summary>
-    public interface IPipelineModule<T> : IPipelineComponent<T>
-	{
-		/// <summary>
-		/// The IMessageBus side of an IPipelineModule will forward
-		/// its Receive method calls to the node returned by this property.
-		/// </summary>
-        IPipelineNode<T> Consumer { get; }
-
-		/// <summary>
-		/// The IMessageBus side of an IPipelineModule will forward
-		/// its Send method calls to the node returned by this property.
-		/// </summary>
-        IPipelineNode<T> Producer { get; }
-	}
+        /// <summary>
+        /// Next item in an IPipeline
+        /// </summary>
+        IPipelineNode<T> Next { get; set; }
+    }
 
 	/// <summary>
 	/// IPipeline must forward its implementation
@@ -114,11 +79,11 @@ namespace SmartGraph.Engine.Pipeline.Interfaces
 	/// and IMessageProducer. The IPipelineComponent.Next property
 	/// returns the next IPipeline in the pipeline.
 	/// </summary>
-    public interface IPipeline<T> : IPipelineComponent<T>
+    public interface IPipeline<T> : IPipelineNode<T>
 	{
 		/// <summary>
 		/// Ordered collection of IPipelineModule's
 		/// </summary>
-        IList<IPipelineModule<T>> Modules { get; }
+        IList<IPipelineNode<T>> Nodes { get; }
 	}
 }

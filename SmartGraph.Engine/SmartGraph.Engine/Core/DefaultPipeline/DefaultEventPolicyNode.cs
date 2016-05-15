@@ -25,7 +25,7 @@ namespace SmartGraph.Engine.Core
     /// do any processing on its own and forwards all the messages it receives to
     /// the next (scheduling) component.
     /// </summary>
-    public sealed class DefaultEventPolicyNode : SimplePipelineComponentBase<IEngineTask>, IEventPipelineNode
+    public sealed class DefaultEventPolicyNode : SimplePipelineComponent<IEngineTask>, IEventPipelineNode
 	{
         private IEngine engine;
 
