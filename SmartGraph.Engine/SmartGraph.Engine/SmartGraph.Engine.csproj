@@ -124,7 +124,7 @@
     <Compile Include="Core\DefaultPipeline\DefaultEventPolicyNode.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Xml\XmlBuilder.cs">
+    <Compile Include="Xml\XmlEngineBuilder.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Xml\XmlHelpers.cs">

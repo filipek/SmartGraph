@@ -68,14 +68,7 @@ namespace SmartGraph.Engine.TestApp
             this.name = name;
             publishEventPattern = containsPattern;
 
-            CEngine engineXml;
-            using (var xmlReader = new XmlTextReader(GetDataFile(name)))
-            {
-                engineXml = (CEngine)XmlHelpers.Deserialize(
-                    typeof(CEngine), xmlReader, XmlEngineBuilder.EngineNamespace);
-            }
-
-            var builder = new XmlEngineBuilder(engineXml);
+            var builder = new XmlEngineBuilder(GetDataFile(name));
             engine = new SmartEngine(name, builder);
 
             engine.CleanNodeEvent += (e, n) => OnCleanNodeHandler(e, n);

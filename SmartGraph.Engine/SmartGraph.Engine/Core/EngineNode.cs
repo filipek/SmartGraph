@@ -26,8 +26,8 @@ namespace SmartGraph.Engine.Core
 {
     internal class EngineNode : IEngineNode
 	{
-		private EngineCore engine;
-        private IDictionary<String, String> inputMap;
+        private readonly EngineCore engine;
+        private readonly IDictionary<String, String> inputMap;
 
         private String ReverseInputMap(String name)
         {
@@ -40,23 +40,20 @@ namespace SmartGraph.Engine.Core
 			Guard.AssertNotNull(node, "node");
 
             this.engine = engine;
-
             Vertex = vertex;
             Node = node;
 
             inputMap = engine.GetInputs(vertex);
-            
-            InputValues = new Dictionary<String, IEngineNode>();
 
-			Bind();
+            Bind();
 		}
 
         public void Dispose()
         {
-            if (Node is IDisposable)
-            {
-                ((IDisposable)Node).Dispose();
-            }
+            InputValues.Clear();
+
+            Value.TryDispose();
+            Node.TryDispose();
         }
 
         public void MarkNodeAsDirty()
@@ -100,12 +97,12 @@ namespace SmartGraph.Engine.Core
             }
 		}
 
-        public IDictionary<String, IEngineNode> InputValues { get; private set; }
-
         public IVertex Vertex { get; private set; }
 
         public INode Node { get; private set; }
 
         public Object Value { get; set; }
+
+        public IDictionary<String, IEngineNode> InputValues { get; private set; } = new Dictionary<String, IEngineNode>();
     }
 }

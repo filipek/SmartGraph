@@ -24,7 +24,7 @@ namespace SmartGraph.Engine.Core
 {
     public interface IEngineBuilder
     {
-        IGraph CreateGraph();
+        IGraph CreateGraph(string name);
 
         INode CreateNode(IVertex v);
 

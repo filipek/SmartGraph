@@ -16,7 +16,7 @@
 // THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 //
 -->
-<e:engine name="TicketTester"
+<e:engine name="TaskSimulator"
     xmlns=""
     xmlns:e="urn:smartgraph:engine"
     xmlns:n="urn:smartgraph:engine:nodes"

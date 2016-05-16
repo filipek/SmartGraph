@@ -72,7 +72,7 @@ namespace SmartGraph.Engine.Core
         {
             engineName = name;
             engineBuilder = builder;
-            engineGraph = builder.CreateGraph();
+            engineGraph = builder.CreateGraph(name);
             enginePipeline = pipeline;
             engineNodeMap = new Dictionary<string, EngineNode>();
             countOfFirstLoadsOutstanding = 0;

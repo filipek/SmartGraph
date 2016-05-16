@@ -52,6 +52,16 @@ namespace System
 {
     public static class Extensions
     {
+        public static void TryDispose(this Object obj)
+        {
+            if (obj == null) { return; }
+
+            if (obj is IDisposable)
+            {
+                ((IDisposable)obj).Dispose();
+            }
+        }
+
         public static double NextBetween(this Random random, double min, double max)
         {
             Guard.AssertNotNull(random, nameof(random));

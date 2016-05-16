@@ -38,6 +38,14 @@ namespace SmartGraph.Engine.Common
             }
         }
 
+        static public void AssertNotNullOrWhitespace(String param, String paramName)
+        {
+            if (String.IsNullOrWhiteSpace(param))
+            {
+                throw new ArgumentNullException(paramName, "Cannot be null, empty or consist only of white-space characters");
+            }
+        }
+
         static public void AssertNull<T>(T param, String paramName)
         {
             if (param != null)
