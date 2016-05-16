@@ -16,12 +16,13 @@
 //
 #endregion
 
+using System;
 using System.Collections.Concurrent;
 using SmartGraph.Engine.Pipeline.Interfaces;
 
 namespace SmartGraph.Engine.Pipeline
 {
-    public class MessageBus<T> : IMessageBus<T>
+    public class MessageBus<T> : MarshalByRefObject, IMessageBus<T>
     {
         /// <summary>
         /// Represents a blocking thread-safe collection which enforces the FIFO order

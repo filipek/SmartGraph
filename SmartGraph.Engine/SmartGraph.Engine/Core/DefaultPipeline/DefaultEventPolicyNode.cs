@@ -16,6 +16,7 @@
 //
 #endregion
 
+using SmartGraph.Engine.Common;
 using SmartGraph.Engine.Pipeline;
 
 namespace SmartGraph.Engine.Core
@@ -43,7 +44,10 @@ namespace SmartGraph.Engine.Core
         public override void Produce(IEngineTask message)
 		{
             EngineCounters.AddDirtyNodeEvent();
-			SendNext(message);
+
+            Diagnostics.WriteLine(this, $"new dirty node = '{message.DirtyNode.Node.Name}'");
+
+            SendNext(message);
 		}
 	}
 }

@@ -17,10 +17,6 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmartGraph.Engine.RandomGraphGenerator.Generators
 {
@@ -83,10 +79,7 @@ namespace SmartGraph.Engine.RandomGraphGenerator.Generators
             int ranks = random.NextBetween(MinRank, MaxRank);
             int nodeCount = 0;
 
-            if (onStartGraph != null)
-            {
-                onStartGraph();
-            }
+            onStartGraph?.Invoke();
 
             for (int i = 0; i < ranks; ++i)
             {
@@ -94,26 +87,17 @@ namespace SmartGraph.Engine.RandomGraphGenerator.Generators
 
                 for (int j = 0; j < nodeCount; ++j)
                 {
-                    if (onCreateVertex != null)
-                    {
-                        onCreateVertex(j);
-                    }
+                    onCreateVertex?.Invoke(j);
 
                     for (int k = 0; k < newNodeCount; ++k)
                     {
                         var n = k + nodeCount;
 
-                        if (onCreateVertex != null)
-                        {
-                            onCreateVertex(n);
-                        }
+                        onCreateVertex?.Invoke(n);
 
                         if (random.Next() % 100 < Percent)
                         {
-                            if (onCreateEdge != null)
-                            {
-                                onCreateEdge(j, n);
-                            }
+                            onCreateEdge?.Invoke(j, n);
                         }
                     }
                 }
@@ -121,10 +105,7 @@ namespace SmartGraph.Engine.RandomGraphGenerator.Generators
                 nodeCount += newNodeCount;
             }
 
-            if (onEndGraph != null)
-            {
-                onEndGraph();
-            }
+            onEndGraph?.Invoke();
         }
     }
 }

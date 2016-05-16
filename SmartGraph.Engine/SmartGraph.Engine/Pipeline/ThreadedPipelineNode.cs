@@ -17,7 +17,7 @@
 #endregion
 
 using System;
-using System.Threading;
+using System.Threading.Tasks;
 using SmartGraph.Engine.Common;
 using SmartGraph.Engine.Pipeline.Interfaces;
 
@@ -26,11 +26,13 @@ namespace SmartGraph.Engine.Pipeline
     public class ThreadedPipelineNode<T> : PipelineNode<T>
         where T : class
     {
-        private readonly IMessageBus<T> messageBus;
-        private Thread thread;
+        private readonly IMessageBus<T> messageBus = new MessageBus<T>();
+        private Task task;
 
-        private void ThreadAction()
+        private void InternalTaskAction()
         {
+            Diagnostics.WriteLine(this, $"Starting task");
+
             do
             {
                 // Consume message
@@ -45,11 +47,11 @@ namespace SmartGraph.Engine.Pipeline
                     Diagnostics.DebugException(e, "Consuming task");
                 }
 
-                if (ThreadedAction != null)
+                if (TaskAction != null)
                 {
                     try
                     {
-                        ThreadedAction(message);
+                        TaskAction(message);
                     }
                     catch (Exception e)
                     {
@@ -58,7 +60,7 @@ namespace SmartGraph.Engine.Pipeline
                 }
                 else
                 {
-                    throw new InvalidOperationException("Cannot process task - ThreadedAction is not set.");
+                    throw new InvalidOperationException("Cannot process task - TaskAction is not set.");
                 }
 
                 // SendNext
@@ -77,8 +79,6 @@ namespace SmartGraph.Engine.Pipeline
             : base(name)
         {
             Guard.AssertNotNullOrEmpty(name, nameof(name));
-
-            messageBus = new MessageBus<T>();
         }
 
         public override void Produce(T message)
@@ -88,20 +88,17 @@ namespace SmartGraph.Engine.Pipeline
 
         public void Start()
         {
-            thread = new Thread(new ThreadStart(ThreadAction));
-            thread.Start();
+            task = Task.Factory.StartNew(InternalTaskAction);
         }
 
         public void Stop()
         {
-            if (thread != null)
-            {
-                thread.Interrupt();
-                thread.Join();
-                thread = null;
-            }
+            if (task == null) { return; }
+
+            task.Wait();
+            task = null;
         }
 
-        public Action<T> ThreadedAction { get; set; }
+        public Action<T> TaskAction { get; set; }
     }
 }

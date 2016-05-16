@@ -146,7 +146,7 @@ namespace SmartGraph.Engine.Nodes.Core
                 }
             }
 
-            Diagnostics.WriteLine(this, String.Format("[{0}] ticked new value '{1}'", Name, Value));
+            Diagnostics.WriteLine(this, $"ticked, new value '{Value}'");
 
             MarkNodeAsDirty();
         }

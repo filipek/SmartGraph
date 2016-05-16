@@ -45,11 +45,13 @@ namespace SmartGraph.Engine.Core
 
             try
             {
+                Diagnostics.WriteLine(task, $"calculating node = '{task.DirtyNode.Node.Name}'");
+
                 task.Execute();
             }
             catch (Exception e)
             {
-                Diagnostics.WriteLine(task, String.Format(@"unexpected exception= {0}", e.Message));
+                Diagnostics.WriteLine(task, $"unexpected exception= {e.Message}");
             }
             finally
             {
@@ -63,7 +65,7 @@ namespace SmartGraph.Engine.Core
         public DefaultCalculationPolicyNode()
             : base(typeof(DefaultCalculationPolicyNode).Name)
         {
-            ThreadedAction = Calculate;
+            TaskAction = Calculate;
         }
 
         public void Bind(IEngine engine)

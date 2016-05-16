@@ -47,21 +47,17 @@ namespace SmartGraph.Engine.Core
 
                     CleanNodeEvent(engine, node);
 
-                    Diagnostics.WriteLine(this,
-                        String.Format("published change for node= {0}", node.Name));
+                    Diagnostics.WriteLine(this, $"published node update = '{node.Name}'");
                 }
             }
 
-            if (CleanGraphEvent != null)
-            {
-                CleanGraphEvent(engine);
-            }
+            CleanGraphEvent?.Invoke(engine);
         }
 
         public DefaultPublishingPolicyNode()
             : base(typeof(DefaultPublishingPolicyNode).Name)
         {
-            ThreadedAction = Publish;
+            TaskAction = Publish;
         }
 
         public event CleanGraphEventHandler CleanGraphEvent;
@@ -71,11 +67,6 @@ namespace SmartGraph.Engine.Core
         {
             Guard.AssertNotNull(engine, "engine");
             this.engine = engine;
-        }
-
-        public IEngine Engine
-        {
-            get { return engine; }
         }
     }
 }

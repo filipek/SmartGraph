@@ -105,8 +105,7 @@ namespace SmartGraph.Engine.Core
 
             var dirtyNode = task.DirtyNode;
 
-            Diagnostics.WriteLine(this,
-                String.Format("scheduled task for node= {0}", dirtyNode.Node.Name));
+            Diagnostics.WriteLine(this, $"scheduled node for update = '{dirtyNode.Node.Name}'");
 
             if (isInitialized)
             {
