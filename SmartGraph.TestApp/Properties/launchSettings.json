@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SmartGraph.TestApp": {
+      "commandName": "Project",
+      "commandLineArgs": "TickerTester"
+    }
+  }
+}

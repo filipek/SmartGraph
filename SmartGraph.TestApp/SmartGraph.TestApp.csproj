@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Data\RandomTester.xml" />
+    <None Remove="Data\TaskSimulator.xml" />
+    <None Remove="Data\TickerTester.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Data\RandomTester.xml" />
+    <Content Include="Data\TaskSimulator.xml" />
+    <Content Include="Data\TickerTester.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SmartGraph.Nodes\SmartGraph.Nodes.csproj" />
+    <ProjectReference Include="..\SmartGraph\SmartGraph.csproj" />
+  </ItemGroup>
+
+</Project>

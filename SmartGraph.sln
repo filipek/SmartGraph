@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartGraph.TestApp", "SmartGraph.TestApp\SmartGraph.TestApp.csproj", "{2FC01E05-5B33-4A4D-97BA-94070CDDA88C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartGraph.Tests", "SmartGraph.Tests\SmartGraph.Tests.csproj", "{A24CC3F1-3094-4E9A-B2EB-58786FFE3B04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartGraph.RandomGraphGenerator", "SmartGraph.RandomGraphGenerator\SmartGraph.RandomGraphGenerator.csproj", "{343B68AC-C041-498C-9076-9D7D26F02D26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartGraph", "SmartGraph\SmartGraph.csproj", "{A8776AD4-353F-47AB-B7A2-84E1F432C854}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartGraph.Nodes", "SmartGraph.Nodes\SmartGraph.Nodes.csproj", "{D8959C7D-C8C0-4D23-8870-9AA1AE15669E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2FC01E05-5B33-4A4D-97BA-94070CDDA88C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FC01E05-5B33-4A4D-97BA-94070CDDA88C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FC01E05-5B33-4A4D-97BA-94070CDDA88C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FC01E05-5B33-4A4D-97BA-94070CDDA88C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A24CC3F1-3094-4E9A-B2EB-58786FFE3B04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A24CC3F1-3094-4E9A-B2EB-58786FFE3B04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A24CC3F1-3094-4E9A-B2EB-58786FFE3B04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A24CC3F1-3094-4E9A-B2EB-58786FFE3B04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{343B68AC-C041-498C-9076-9D7D26F02D26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{343B68AC-C041-498C-9076-9D7D26F02D26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{343B68AC-C041-498C-9076-9D7D26F02D26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{343B68AC-C041-498C-9076-9D7D26F02D26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8776AD4-353F-47AB-B7A2-84E1F432C854}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8776AD4-353F-47AB-B7A2-84E1F432C854}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8776AD4-353F-47AB-B7A2-84E1F432C854}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8776AD4-353F-47AB-B7A2-84E1F432C854}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8959C7D-C8C0-4D23-8870-9AA1AE15669E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8959C7D-C8C0-4D23-8870-9AA1AE15669E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8959C7D-C8C0-4D23-8870-9AA1AE15669E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8959C7D-C8C0-4D23-8870-9AA1AE15669E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B8FAAC17-BD6D-4134-BD03-417017C23285}
+	EndGlobalSection
+EndGlobal
