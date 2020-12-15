@@ -1,0 +1,88 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+    <title></title>
+    <meta name="GENERATOR" content="Microsoft Visual Studio .NET 7.1">
+    <meta name="ProgId" content="VisualStudio.HTML">
+    <meta name="Originator" content="Microsoft Visual Studio .NET 7.1">
+</head>
+<body>
+    <h1 align="center">SmartGraph.Dag An implementation of Directed Acyclic Graphs</h1>
+    <hr>
+    <P>Contents</P>
+    <OL>
+        <LI>
+            Introduction
+        <LI>
+            Directed Acyclic Graphs
+        <LI>
+            The SmartGraph.Dag library
+        <LI>
+            SmartGraph.Dag.Algorithm
+        </LI>
+    </OL>
+    <hr>
+    <H2>Introduction</H2>
+    <p>
+        The SmartGraph.Dag library contains classes and algorithms for building and
+        manipulating Directed Acyclic Graphs (or DAGs).
+    </p>
+    <H2>Directed Acyclic Graphs</H2>
+    <p>
+        A graph, in general, is a container of vertices and edges. A vertex is an object
+        i.e. whatever you want it to be, and an edge is a tuple of vertices (source,
+        target) where the order of the items in the tuple does not matter. A DAG is a
+        type of graph where an edge is an ordered tuple. A DAG thus specifies a set of
+        relationships on a set of objects. The 'relationship' says that one object is
+        dependent on another ie the target depends on the source.
+    </p>
+    <H2>SmartGraph.Dag implementation</H2>
+    <p>
+        An interface-based approach to implementation has been used throught the
+        library. The following interfaces are defined:
+    </p>
+    <ul>
+        <li>
+            <STRONG>IDAGObject</STRONG>
+            - defines a base for all other 'DAGObjects'.
+        </li>
+        <li>
+            <STRONG>IVertex</STRONG>
+            (derived from IDAGObject) - defines a vertex (or node).
+        </li>
+        <li>
+            <STRONG>IEdge</STRONG>
+            (derived from IDAGObject) - defines an edge (source, target).
+        </li>
+        <li>
+            <STRONG>IGraph</STRONG>
+            (derived from IDAGObject) - defines a container of vertices and edges.
+        </li>
+        <li>
+            <STRONG>IGraphFactory</STRONG> - defines a set of methods for creating
+            IGraph's.
+        </li>
+    </ul>
+    <H2>SmartGraph.Dag.Algorithm</H2>
+    <p>The following algorithms have been implemented:</p>
+    <ul>
+        <li>
+            <STRONG>DepthFirstSearch</STRONG>
+            - performs a depth-first-search (or DFS). This means following the out-edges
+            (from source to target) of vertices.
+        </li>
+        <li>
+            <STRONG>ToplogicalSort</STRONG>
+            - sorts the vertices of a graph based on the edges. The creates an ordering on
+            the vertices of the graph based on their inter-dependencies which is a kind of
+            DFS. The difference is that each node is 'noted' *after* all its children have
+            been 'noted' and not *before* like in DFS.
+        </li>
+        <li>
+            <STRONG>EquivalenceClasses</STRONG> - sorts vertices of a graph into lists of
+            vertices. Nodes in the same list have a 'connection' in other words
+            directedness of edges is not taken into account.
+        </li>
+    </ul>
+</body>
+</html>
