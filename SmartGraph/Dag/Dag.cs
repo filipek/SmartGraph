@@ -1,6 +1,6 @@
-#region Copyright (C) 2015 Filip Fodemski
+#region Copyright (c) 2020 Filip Fodemski
 // 
-// Copyright (c) 2015 Filip Fodemski
+// Copyright (c) 2020 Filip Fodemski
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files
 // (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge,
@@ -16,16 +16,16 @@
 //
 #endregion
 
-using SmartGraph.Common;
-using SmartGraph.Dag.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using SmartGraph.Common;
+using SmartGraph.Dag.Interfaces;
 
 namespace SmartGraph.Dag
 {
-	#region Directed Acyclic Graph
-	public abstract class DAGObject : IDAGObject
+    #region Directed Acyclic Graph
+
+    public abstract class DAGObject : IDAGObject
 	{
 		protected string name;
 		protected IGraph owner;
@@ -46,6 +46,7 @@ namespace SmartGraph.Dag
 
 		#endregion
 	}
+
 	public class Edge: DAGObject, IEdge
 	{
 		protected IVertex source;
@@ -93,6 +94,7 @@ namespace SmartGraph.Dag
 
 		#endregion
 	}
+
 	public class Vertex: DAGObject, IVertex
 	{
 		public Vertex(IGraph o, string n) : base(o, n)
@@ -129,5 +131,6 @@ namespace SmartGraph.Dag
 
 		#endregion
 	}
+
 	#endregion
 }

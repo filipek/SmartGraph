@@ -1,6 +1,6 @@
-﻿#region Copyright (C) 2015 Filip Fodemski
+﻿#region Copyright (c) 2020 Filip Fodemski
 // 
-// Copyright (c) 2015 Filip Fodemski
+// Copyright (c) 2020 Filip Fodemski
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files
 // (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge,
@@ -16,62 +16,22 @@
 //
 #endregion
 
-using SmartGraph.Common;
-using System;
+using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace SmartGraph.TestApp
 {
     class Program
     {
-        private static TestEngineHost CreateEngine(string engineName)
+        private static async Task Main(string[] args)
         {
-            TestEngineHost engine;
-
-            switch (engineName)
-            {
-                case "TickerTester":
-                    engine = new TestEngineHost("TickerTester", "Value");
-                    break;
-                case "TaskSimulator":
-                    engine = new TestEngineHost("TaskSimulator", "SimulatedTask");
-                    break;
-                case "RandomTester":
-                default:
-                    engine = new TestEngineHost("RandomTester", "publisher");
-                    break;
-            }
-
-            return engine;
-        }
-
-        private static void Main(string[] args)
-        {
-            try
-            {
-                string engineName;
-                if (args == null || args.Length == 0 || string.IsNullOrEmpty(args[0]))
+            await Host.CreateDefaultBuilder(args)
+                .ConfigureServices((context, services) =>
                 {
-                    engineName = string.Empty;
-                }
-                else
-                {
-                    engineName = args[0];
-                }
-
-                using (var engine = CreateEngine(engineName))
-                {
-                    engine.Start();
-
-                    int ch = 0;
-                    while (ch == 0) { ch = Console.Read(); }
-
-                    engine.Stop();
-                }
-            }
-            catch (Exception e)
-            {
-                Diagnostics.DebugException(e, "Program failure");
-            }
+                    services.AddHostedService<SmartGraphService>();
+                })
+                .RunConsoleAsync();
         }
     }
 }

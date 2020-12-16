@@ -1,6 +1,6 @@
-#region Copyright (C) 2015 Filip Fodemski
+#region Copyright (c) 2020 Filip Fodemski
 // 
-// Copyright (c) 2015 Filip Fodemski
+// Copyright (c) 2020 Filip Fodemski
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files
 // (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge,
@@ -16,23 +16,22 @@
 //
 #endregion
 
-using System;
 using System.Collections.Generic;
 
 namespace SmartGraph.Pipeline.Interfaces
 {
-	// This set of interfaces provides a framework for
-	// managing pipelines of processing. A IPipeline
-	// contains an ordered IList of IPipelineModule's.
-	// Each pipeline module contains two processing tasks i.e. 
-	// producer and consumer.
-	// This design was inspired by the ACE Toolkit, read more at
-	// http://www.cs.wustl.edu/~schmidt/PDF/C++-USENIX-94.pdf
+    // This set of interfaces provides a framework for
+    // managing pipelines of processing. A IPipeline
+    // contains an ordered IList of IPipelineModule's.
+    // Each pipeline module contains two processing tasks i.e. 
+    // producer and consumer.
+    // This design was inspired by the ACE Toolkit, read more at
+    // http://www.cs.wustl.edu/~schmidt/PDF/C++-USENIX-94.pdf
 
-	/// <summary>
-	/// A message consumer.
-	/// </summary>
-	public interface IMessageConsumer<T>
+    /// <summary>
+    /// A message consumer.
+    /// </summary>
+    public interface IMessageConsumer<T>
 	{
 		/// <summary>
 		/// Receive a message - blocking call.
