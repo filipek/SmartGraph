@@ -32,7 +32,7 @@ namespace SmartGraph.RandomGraphGenerator
                 var cmdLine = new ProgramOptions(args);
 
                 var fileName = cmdLine.Output;
-                bool isConsoleOutput = String.IsNullOrEmpty(fileName);
+                bool isConsoleOutput = string.IsNullOrEmpty(fileName);
 
                 if (!isConsoleOutput)
                 {

@@ -52,7 +52,7 @@ namespace SmartGraph.Core.Policies
                     CleanNodeEvent(engine, node);
 
                     Diagnostics.WriteLine(this,
-                        String.Format("published change for node= {0}", node.Name));
+                        string.Format("published change for node= {0}", node.Name));
                 }
             }
 

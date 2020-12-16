@@ -25,19 +25,19 @@ namespace SmartGraph.TestApp
 {
 	internal class Helpers
 	{
-		public static String DataDir( String f )
+		public static string DataDir( string f )
 		{
 			return Environment.CurrentDirectory + @"\..\..\..\data\" + f;
 		}
-		public static String LoadExpectedStringFile(String expectedName)
+		public static string LoadExpectedStringFile(string expectedName)
 		{
 			StreamReader s = File.OpenText( Helpers.DataDir( expectedName + ".txt" ) );
 			return s.ReadToEnd();
 		}
-        public static String DumpVertexList(IList<IVertex> vo)
+        public static string DumpVertexList(IList<IVertex> vo)
 		{
 			int i = 0;
-			String res = String.Empty;
+			string res = string.Empty;
 			foreach ( IVertex v in vo )
 			{
 				res += v.Name;
@@ -47,13 +47,13 @@ namespace SmartGraph.TestApp
 
 			return res;
 		}
-        public static String DumpListOfVertexLists(IList<IList<IVertex>> lvl)
+        public static string DumpListOfVertexLists(IList<IList<IVertex>> lvl)
 		{
 			int i = 0;
-			String res = String.Empty;
+			string res = string.Empty;
             foreach (IList<IVertex> vl in lvl)
 			{
-				res += String.Format( "{0}", DumpVertexList( vl ) );
+				res += string.Format( "{0}", DumpVertexList( vl ) );
 				if ( i++ != ( lvl.Count - 1 ) )
 					res += "\r\n";
 			}

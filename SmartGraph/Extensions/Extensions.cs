@@ -24,7 +24,7 @@ using System.Text;
 
 public static class Extensions
 {
-    public static String ToFlatString<K,V>(this IDictionary<K,V> dict)
+    public static string ToFlatString<K,V>(this IDictionary<K,V> dict)
     {
         Guard.AssertNotNull(dict, "dict");
 
@@ -33,7 +33,7 @@ public static class Extensions
             sb => sb.Length > 2 ? sb.Remove(0, 2).ToString() : "");
     }
 
-    public static String ToFlatString<T>(this IList<T> list)
+    public static string ToFlatString<T>(this IList<T> list)
     {
         Guard.AssertNotNull(list, "list");
 

@@ -23,7 +23,7 @@ namespace SmartGraph.RandomGraphGenerator.Formats
 {
     internal class GraphFormatWriterFactory
     {
-        public static IGraphFormatWriter Create(String format)
+        public static IGraphFormatWriter Create(string format)
         {
             Guard.AssertNotNullOrEmpty(format, "format");
 
@@ -35,7 +35,7 @@ namespace SmartGraph.RandomGraphGenerator.Formats
                     return new EngineXmlFormatWriter();
                 default:
                     throw new InvalidOperationException(
-                        String.Format("Unknown graph format '{0}'", format));
+                        string.Format("Unknown graph format '{0}'", format));
             }
         }
     }

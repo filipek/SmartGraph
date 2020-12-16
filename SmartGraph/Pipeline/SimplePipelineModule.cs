@@ -26,7 +26,7 @@ namespace SmartGraph.Pipeline
         protected readonly IPipelineNode<T> consumer;
         protected readonly IPipelineNode<T> producer;
 
-        public SimplePipelineModule(String name, IPipelineNode<T> consumer, IPipelineNode<T> producer)
+        public SimplePipelineModule(string name, IPipelineNode<T> consumer, IPipelineNode<T> producer)
             : base(name)
         {
             this.consumer = consumer;

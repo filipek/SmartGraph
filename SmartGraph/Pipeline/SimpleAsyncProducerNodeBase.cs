@@ -70,10 +70,10 @@ namespace SmartGraph.Pipeline
 
         protected abstract void InternalProduce(T message);
 
-        public SimpleAsyncProducerNodeBase(String name)
+        public SimpleAsyncProducerNodeBase(string name)
             : this(name, new SimpleMessageBus<T>()) { }
 
-        public SimpleAsyncProducerNodeBase(String name, IMessageBus<T> msgBus)
+        public SimpleAsyncProducerNodeBase(string name, IMessageBus<T> msgBus)
             : base(name)
         {
             MessageBus = new SimpleMessageBus<T>();

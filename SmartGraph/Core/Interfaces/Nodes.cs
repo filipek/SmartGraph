@@ -27,7 +27,7 @@ namespace SmartGraph.Core.Interfaces
 
     public interface INode
     {
-        String Name { get; }
+        string Name { get; }
 
         void Bind(IEngineNode host);
 

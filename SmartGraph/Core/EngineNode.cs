@@ -16,21 +16,21 @@
 //
 #endregion
 
-using SmartGraph.Common;
-using SmartGraph.Core.Interfaces;
-using SmartGraph.Dag.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SmartGraph.Common;
+using SmartGraph.Core.Interfaces;
+using SmartGraph.Dag.Interfaces;
 
 namespace SmartGraph.Core
 {
-	internal class EngineNode : IEngineNode
+    internal class EngineNode : IEngineNode
 	{
 		private EngineCore engine;
-        private IDictionary<String, String> inputMap;
+        private IDictionary<string, string> inputMap;
 
-        private String ReverseInput(String name)
+        private string ReverseInput(string name)
         {
             return inputMap.First(i => i.Value == name).Key;
         }
@@ -47,7 +47,7 @@ namespace SmartGraph.Core
 
             inputMap = engine.Builder.GetInputs(vertex);
             
-            InputValues = new Dictionary<String, IEngineNode>();
+            InputValues = new Dictionary<string, IEngineNode>();
 
 			Bind();
 		}
@@ -60,19 +60,19 @@ namespace SmartGraph.Core
             }
         }
 
-        public IDictionary<String, IEngineNode> InputValues { get; private set; }
+        public IDictionary<string, IEngineNode> InputValues { get; private set; }
 
         public IVertex Vertex { get; private set; }
         
         public INode Node { get; private set; }
 
-        public Object Value { get; set; }
+        public object Value { get; set; }
 
         public void MarkNodeAsDirty()
 		{
             if (!(Node is IActiveNode))
             {
-                var msg = String.Format(
+                var msg = string.Format(
                     "A non-IActiveNode '{0}' raised the dirty event.", Node.Name);
                 throw new InvalidOperationException(msg);
             }

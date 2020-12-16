@@ -23,12 +23,12 @@ namespace SmartGraph.RandomGraphGenerator
 	public class ProgramOptions : CommandLineOptions
 	{
 		[Option(Short = "o", Description = "Output file")]
-		public String Output = String.Empty;
+		public string Output = string.Empty;
 
 		[Option(Short = "f", Description = "Output format, one of: dot or enginexml")]
-        public String Format = "dot";
+        public string Format = "dot";
 
-		protected override void InvalidOption(String name)
+		protected override void InvalidOption(string name)
 		{
 			Console.WriteLine("Invalid option '{0}'", name);
 			Help();
@@ -42,7 +42,7 @@ namespace SmartGraph.RandomGraphGenerator
 			Environment.Exit(1);
 		}
 
-        public ProgramOptions(String[] args) : base(args)
+        public ProgramOptions(string[] args) : base(args)
 		{
 			if (args.Length == 0)
 			{

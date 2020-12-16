@@ -27,10 +27,10 @@ namespace SmartGraph.Dag
 	#region Directed Acyclic Graph
 	public abstract class DAGObject : IDAGObject
 	{
-		protected String name;
+		protected string name;
 		protected IGraph owner;
 
-		protected DAGObject(IGraph owner, String name)
+		protected DAGObject(IGraph owner, string name)
 		{
             Guard.AssertNotNullOrEmpty(name, "name");
 
@@ -40,7 +40,7 @@ namespace SmartGraph.Dag
 		
 		#region IDAGObject Members
 
-		public virtual String Name { get { return name; } }
+		public virtual string Name { get { return name; } }
 
 		public virtual IGraph Owner { get { return owner; } }
 
@@ -51,7 +51,7 @@ namespace SmartGraph.Dag
 		protected IVertex source;
 		protected IVertex target;
 
-		public Edge(IGraph owner, String name, IVertex source, IVertex target)
+		public Edge(IGraph owner, string name, IVertex source, IVertex target)
             : base(owner, name)
 		{
             Guard.AssertNotNull(source, "source");
@@ -64,7 +64,7 @@ namespace SmartGraph.Dag
             target.InEdges.Add(this);
 		}
 
-        public Edge(IGraph owner, String name, String source, String target)
+        public Edge(IGraph owner, string name, string source, string target)
             : base(owner, name)
         {
             Guard.AssertNotNullOrEmpty(source, "source");
@@ -95,7 +95,7 @@ namespace SmartGraph.Dag
 	}
 	public class Vertex: DAGObject, IVertex
 	{
-		public Vertex(IGraph o, String n) : base(o, n)
+		public Vertex(IGraph o, string n) : base(o, n)
         {
             InEdges = new HashSet<IEdge>();
             OutEdges = new HashSet<IEdge>();
@@ -112,9 +112,9 @@ namespace SmartGraph.Dag
 
 	public class DagGraph : DAGObject, IGraph
 	{
-        public DagGraph(String name) : this(name, null) { }
+        public DagGraph(string name) : this(name, null) { }
 
-        public DagGraph(String name, IGraph owner)
+        public DagGraph(string name, IGraph owner)
             : base(owner, name)
         {
             Edges = new HashSet<IEdge>();

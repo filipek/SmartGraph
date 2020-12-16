@@ -22,7 +22,7 @@ namespace SmartGraph.Common
 {
 	public static class Guard
 	{
-        static public void AssertNotNull<T>(T param, String paramName) 
+        static public void AssertNotNull<T>(T param, string paramName) 
 		{
             if (param == null)
             {
@@ -30,15 +30,15 @@ namespace SmartGraph.Common
             }
 		}
 
-        static public void AssertNotNullOrEmpty(String param, String paramName)
+        static public void AssertNotNullOrEmpty(string param, string paramName)
         {
-            if (String.IsNullOrEmpty(param))
+            if (string.IsNullOrEmpty(param))
             {
                 throw new ArgumentNullException(paramName, "Cannot be null or empty");
             }
         }
 
-        static public void AssertNull<T>(T param, String paramName)
+        static public void AssertNull<T>(T param, string paramName)
         {
             if (param != null)
             {
@@ -46,21 +46,21 @@ namespace SmartGraph.Common
             }
         }
 
-        static public void AssertSmallerThan<T>(T smaller, T bigger, String paramName)
+        static public void AssertSmallerThan<T>(T smaller, T bigger, string paramName)
             where T : IComparable<T>
         {
             if (smaller.CompareTo(bigger) >= 0)
             {
-                throw new ArgumentException(String.Format("'{0}' is not smaller than '{1}'", smaller, bigger), paramName);
+                throw new ArgumentException(string.Format("'{0}' is not smaller than '{1}'", smaller, bigger), paramName);
             }
         }
 
-        static public void AssertBiggerThan<T>(T bigger, T smaller, String paramName)
+        static public void AssertBiggerThan<T>(T bigger, T smaller, string paramName)
             where T : IComparable<T>
         {
             if (bigger.CompareTo(smaller) <= 0)
             {
-                throw new ArgumentException(String.Format("'{0}' is not bigger than '{1}'", bigger, smaller), paramName);
+                throw new ArgumentException(string.Format("'{0}' is not bigger than '{1}'", bigger, smaller), paramName);
             }
         }
     }

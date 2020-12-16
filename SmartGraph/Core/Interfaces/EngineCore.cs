@@ -16,10 +16,8 @@
 //
 #endregion
 
-using SmartGraph.Dag.Interfaces;
-using SmartGraph.Pipeline.Interfaces;
-using System;
 using System.Collections.Generic;
+using SmartGraph.Dag.Interfaces;
 
 namespace SmartGraph.Core.Interfaces
 {
@@ -29,7 +27,7 @@ namespace SmartGraph.Core.Interfaces
 
         INode CreateNode(IVertex v);
 
-        IDictionary<String, String> GetInputs(IVertex v);
+        IDictionary<string, string> GetInputs(IVertex v);
     }
 
     public interface IEngineNode
@@ -38,9 +36,9 @@ namespace SmartGraph.Core.Interfaces
 
         IVertex Vertex { get; }
 
-        IDictionary<String, IEngineNode> InputValues { get; }
+        IDictionary<string, IEngineNode> InputValues { get; }
 
-        Object Value { get; set; }
+        object Value { get; set; }
 
         void MarkNodeAsDirty();
 
@@ -49,11 +47,11 @@ namespace SmartGraph.Core.Interfaces
 
     public interface IEngine
 	{
-		String Name { get; }
+		string Name { get; }
 
 		IGraph Graph { get; }
 
-        IEngineNode this[String name] { get; }
+        IEngineNode this[string name] { get; }
 
 		void Execute(IEngineTask task);
 	}

@@ -30,55 +30,55 @@ namespace SmartGraph.Common
 	{
 		private Diagnostics() {}
 
-		public static String ThisMethod()
+		public static string ThisMethod()
 		{
 			StackFrame sf = new StackTrace().GetFrame(1);
 			MethodBase method = sf.GetMethod();
-			String sep = ( method.IsStatic ? "::" : "." );
-			return String.Format( "{0}{1}{2}$ ", method.DeclaringType.Name, sep, method.Name);
+			string sep = ( method.IsStatic ? "::" : "." );
+			return string.Format( "{0}{1}{2}$ ", method.DeclaringType.Name, sep, method.Name);
 		}
-		public static String MethodBeforeThisMethod()
+		public static string MethodBeforeThisMethod()
 		{
 			StackFrame sf = new StackTrace().GetFrame(2);
 			MethodBase method = sf.GetMethod();
-			String sep = ( method.IsStatic ? "::" : "." );
-			return String.Format( "{0}{1}{2}$ ", method.DeclaringType.Name, sep, method.Name);
+			string sep = ( method.IsStatic ? "::" : "." );
+			return string.Format( "{0}{1}{2}$ ", method.DeclaringType.Name, sep, method.Name);
 		}
-		public static void WriteLine(Object o, String msg)
+		public static void WriteLine(object o, string msg)
 		{
 			StackTrace st = new StackTrace();
 			StackFrame sf = st.GetFrame(1);
-			String type = o.GetType().ToString();
+			string type = o.GetType().ToString();
 
-			String tid = Thread.CurrentThread.Name;
+			string tid = Thread.CurrentThread.Name;
 			if ( tid == null || tid.Length == 0 )
 			{
 				tid = Thread.CurrentThread.GetHashCode().ToString();
 			}
 
-			Debug.WriteLine( String.Format(
+			Debug.WriteLine( string.Format(
 				"<dbg-msg\n\t\ttid='{0}'\n\t\ttype='{1}'\n\t\tmethod='{2}'\n>{3}</dbg-msg>\n",
                 tid, type, sf.GetMethod().Name, msg));
 		}
-		public static void DebugException(Exception e, String msg, String src)
+		public static void DebugException(Exception e, string msg, string src)
 		{
-			Debug.WriteLine( String.Format(
+			Debug.WriteLine( string.Format(
 				"[{0}] thread {1} caught exception:\n{2}\n--------\n{3}{4}",
 				src,
 				Thread.CurrentThread.GetHashCode(),
 				msg,
 				e.Message,
-				e.InnerException == null ? String.Empty : "\n" + e.InnerException.Message));
+				e.InnerException == null ? string.Empty : "\n" + e.InnerException.Message));
 		}
-		public static void DebugException(Exception e, String msg)
+		public static void DebugException(Exception e, string msg)
 		{
-			Debug.WriteLine( String.Format(
+			Debug.WriteLine( string.Format(
 				"[{0}] thread {1} caught exception:\n{2}\n--------\n{3}{4}",
 				MethodBeforeThisMethod(),
 				Thread.CurrentThread.GetHashCode(),
 				msg,
 				e.Message,
-				e.InnerException == null ? String.Empty : "\n" + e.InnerException.Message));
+				e.InnerException == null ? string.Empty : "\n" + e.InnerException.Message));
 		}
 	}
 }

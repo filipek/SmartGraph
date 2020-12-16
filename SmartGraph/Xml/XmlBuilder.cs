@@ -30,17 +30,17 @@ namespace SmartGraph.Xml
 {
 	public class XmlEngineBuilder : IEngineBuilder
 	{
-		public const String EngineNamespace = "urn:smartgraph:engine";
-        public const String NodesNamespace = "urn:smartgraph:engine:nodes";
+		public const string EngineNamespace = "urn:smartgraph:engine";
+        public const string NodesNamespace = "urn:smartgraph:engine:nodes";
 
         private DagGraph dagGraph;
         private CEngine engineXml;
-        private IDictionary<String, CNode> engineNodes;
+        private IDictionary<string, CNode> engineNodes;
 
         public XmlEngineBuilder(CEngine xml)
         {
             engineXml = xml;
-            engineNodes = new Dictionary<String, CNode>();
+            engineNodes = new Dictionary<string, CNode>();
         }
 
 		public IGraph CreateGraph()
@@ -94,14 +94,14 @@ namespace SmartGraph.Xml
             return engineNode;
         }
 
-        public IDictionary<String, String> GetInputs(IVertex vertex)
+        public IDictionary<string, string> GetInputs(IVertex vertex)
         {
             Guard.AssertNotNull(vertex, "vertex");
 
             var name = vertex.Name;
             var node = engineNodes[name];
 
-            var nodeInputs = new Dictionary<String, String>();
+            var nodeInputs = new Dictionary<string, string>();
 
             if (node.inputs != null)
             {

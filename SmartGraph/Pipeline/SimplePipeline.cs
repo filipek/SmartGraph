@@ -31,7 +31,7 @@ namespace SmartGraph.Pipeline
             get { return Modules.First(); }
 		}
 
-        public SimplePipeline(String name, IList<IPipelineModule<T>> modules)
+        public SimplePipeline(string name, IList<IPipelineModule<T>> modules)
             : base(name)
 		{
             Guard.AssertNotNull(modules, "modules");

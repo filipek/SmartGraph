@@ -34,7 +34,7 @@ namespace SmartGraph.Pipeline
             }
         }
 
-        protected SimplePipelineComponentBase(String name)
+        protected SimplePipelineComponentBase(string name)
         {
             Name = name;
         }
@@ -52,7 +52,7 @@ namespace SmartGraph.Pipeline
             set { moduleSibling = value; }
         }
 
-        public String Name { get; private set; }
+        public string Name { get; private set; }
 
         public virtual IPipelineComponent<T> Next
         {

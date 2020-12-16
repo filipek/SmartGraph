@@ -36,10 +36,10 @@ namespace SmartGraph.Core
     /// </remarks>
     internal static class EngineCounters
     {
-        internal const String engineCategory = "SmartGraph.Engine";
-        internal const String dirtyNodeEventCount = "dirtyNodeEventCount";
-        internal const String calculatedNodeCount = "calculatedNodeCount";
-        internal const String taskExecutionTime = "taskExecutionTime";
+        internal const string engineCategory = "SmartGraph";
+        internal const string dirtyNodeEventCount = "dirtyNodeEventCount";
+        internal const string calculatedNodeCount = "calculatedNodeCount";
+        internal const string taskExecutionTime = "taskExecutionTime";
 
         internal static PerformanceCounter dirtyNodeEventCounter;
         internal static PerformanceCounter calculatedNodeCounter;

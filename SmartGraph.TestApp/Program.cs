@@ -23,7 +23,7 @@ namespace SmartGraph.TestApp
 {
     class Program
     {
-        private static TestEngineHost CreateEngine(String engineName)
+        private static TestEngineHost CreateEngine(string engineName)
         {
             TestEngineHost engine;
 
@@ -44,14 +44,14 @@ namespace SmartGraph.TestApp
             return engine;
         }
 
-        private static void Main(String[] args)
+        private static void Main(string[] args)
         {
             try
             {
-                String engineName;
-                if (args == null || args.Length == 0 || String.IsNullOrEmpty(args[0]))
+                string engineName;
+                if (args == null || args.Length == 0 || string.IsNullOrEmpty(args[0]))
                 {
-                    engineName = String.Empty;
+                    engineName = string.Empty;
                 }
                 else
                 {

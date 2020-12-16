@@ -16,10 +16,10 @@
 //
 #endregion
 
-using SmartGraph.Common;
-using SmartGraph.Core.Interfaces;
 using System;
 using System.Collections.Generic;
+using SmartGraph.Common;
+using SmartGraph.Core.Interfaces;
 
 namespace SmartGraph.Nodes
 {
@@ -27,17 +27,17 @@ namespace SmartGraph.Nodes
     public abstract class NodeBase : INode
     {
         protected IEngineNode nodeHost;
-        protected String nodeName;
+        protected string nodeName;
 
-        protected IDictionary<String, IEngineNode> InputValues { get { return nodeHost.InputValues; } }
+        protected IDictionary<string, IEngineNode> InputValues { get { return nodeHost.InputValues; } }
 
-        protected Object Value
+        protected object Value
         {
             get { return nodeHost.Value; }
             set { nodeHost.Value = value; }
         }
 
-        protected T GetInputNode<T>(String inputName)
+        protected T GetInputNode<T>(string inputName)
         {
             return (T)((IEngineNode)InputValues[inputName]).Value;
         }
@@ -51,7 +51,7 @@ namespace SmartGraph.Nodes
             nodeHost = host;
         }
 
-        public String Name
+        public string Name
         {
             get { return nodeName; }
             set

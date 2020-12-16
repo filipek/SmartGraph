@@ -36,10 +36,10 @@ namespace SmartGraph
         private readonly EngineCore core;
 		private State state;
 
-        public SmartEngine(String name, IEngineBuilder builder)
+        public SmartEngine(string name, IEngineBuilder builder)
             : this(name, builder, new DefaultEnginePipeline()) {}
 
-		public SmartEngine(String name, IEngineBuilder builder, IEnginePipeline pipeline)
+		public SmartEngine(string name, IEngineBuilder builder, IEnginePipeline pipeline)
 		{
             Guard.AssertNotNullOrEmpty(name, "name");
             Guard.AssertNotNull(builder, "builder");

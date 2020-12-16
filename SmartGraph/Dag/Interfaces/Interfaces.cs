@@ -23,7 +23,7 @@ namespace SmartGraph.Dag.Interfaces
 {
 	public interface IDAGObject
 	{
-		String Name { get; }
+		string Name { get; }
 
 		IGraph Owner { get; }
 	}

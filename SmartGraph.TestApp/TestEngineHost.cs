@@ -28,14 +28,14 @@ namespace SmartGraph.TestApp
     internal class TestEngineHost : IDisposable
     {
         private readonly SmartEngine engine;
-        private readonly String name;
-        private readonly String publishEventPattern;
+        private readonly string name;
+        private readonly string publishEventPattern;
 
         private void OnCleanNodeHandler(IEngine engine, INode node)
         {
             var nodeName = node.Name;
 
-            if (!String.IsNullOrEmpty(publishEventPattern))
+            if (!string.IsNullOrEmpty(publishEventPattern))
             {
                 if (nodeName.Contains(publishEventPattern))
                 {
@@ -48,16 +48,16 @@ namespace SmartGraph.TestApp
             }
         }
 
-        public TestEngineHost(String name) : this(name, null) { }
+        public TestEngineHost(string name) : this(name, null) { }
 
-        public TestEngineHost(String name, String containsPattern)
+        public TestEngineHost(string name, string containsPattern)
         {
             Guard.AssertNotNullOrEmpty(name, "name");
 
             this.name = name;
             publishEventPattern = containsPattern;
 
-            var file = Helpers.DataDir(String.Format("{0}.xml", name));
+            var file = Helpers.DataDir(string.Format("{0}.xml", name));
             CEngine engineXml;
             using (var xmlReader = new XmlTextReader(file))
             {

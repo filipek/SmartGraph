@@ -16,11 +16,10 @@
 //
 #endregion
 
+using System;
 using SmartGraph.Common;
 using SmartGraph.Core.Interfaces;
 using SmartGraph.Pipeline;
-using SmartGraph.Pipeline.Interfaces;
-using System;
 
 // A pipeline is used to bind the various policies (pipeline nodes) together to
 // form the SmartGraph engine. Default implementation is provided for each:
@@ -51,7 +50,7 @@ namespace SmartGraph.Core.Policies
             catch (Exception e)
             {
                 Diagnostics.WriteLine(this,
-                    String.Format(@"unexpected exception= {0}", e.Message));
+                    string.Format(@"unexpected exception= {0}", e.Message));
             }
         }
 

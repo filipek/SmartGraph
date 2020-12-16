@@ -39,7 +39,7 @@ namespace SmartGraph.Core.Policies
 {
     public sealed class DefaultSchedulingPolicyNode : SimplePipelineComponentBase<IEngineTask>, ISchedulingPipelineNode
 	{
-        private class TopSortMap : Dictionary<String, IList<IVertex>>
+        private class TopSortMap : Dictionary<string, IList<IVertex>>
         {
             public TopSortMap(int capacity) : base(capacity) {}
         }
@@ -108,7 +108,7 @@ namespace SmartGraph.Core.Policies
             var dirtyNode = task.DirtyNode;
 
             Diagnostics.WriteLine(this,
-                String.Format("scheduled task for node= {0}", dirtyNode.Node.Name));
+                string.Format("scheduled task for node= {0}", dirtyNode.Node.Name));
 
             if (isInitialized)
             {

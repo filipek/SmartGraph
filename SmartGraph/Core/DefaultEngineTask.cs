@@ -65,7 +65,7 @@ namespace SmartGraph.Core
 
             EngineCounters.UpdateCalculatedNodeCount(CalculationOrder.Count);
 
-            var updateOrder = new List<String>();
+            var updateOrder = new List<string>();
 
             var calculationList = CalculationOrder
                 .Select(v => engine[v.Name])
@@ -78,7 +78,7 @@ namespace SmartGraph.Core
             }
 
 			Diagnostics.WriteLine(
-				this, String.Format( "updated {0} nodes [{1} -> {2}]",
+				this, string.Format( "updated {0} nodes [{1} -> {2}]",
 				updateOrder.Count,
 				DirtyNode.Node.Name,
 				updateOrder.ToFlatString()));

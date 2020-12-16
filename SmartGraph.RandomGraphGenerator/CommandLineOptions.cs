@@ -46,7 +46,7 @@ namespace SmartGraph.RandomGraphGenerator
     {
         protected object optValue;
         protected string optName;
-        protected string description = String.Empty;
+        protected string description = string.Empty;
         protected bool isRequired = false;
 
         public string Short
@@ -212,7 +212,7 @@ namespace SmartGraph.RandomGraphGenerator
                     }
 
                     if (IsOptionRequired(field) && value == null)
-                        throw new ArgumentNullException("args", String.Format("Option {0} is required", opt));
+                        throw new ArgumentNullException("args", string.Format("Option {0} is required", opt));
 
                     field.SetValue(this, Convert.ChangeType(value, field.FieldType));
 

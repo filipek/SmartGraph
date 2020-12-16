@@ -18,7 +18,6 @@
 
 using SmartGraph.Core.Interfaces;
 using SmartGraph.Pipeline;
-using SmartGraph.Pipeline.Interfaces;
 
 namespace SmartGraph.Core.Policies
 {

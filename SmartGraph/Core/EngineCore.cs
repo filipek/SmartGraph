@@ -16,24 +16,24 @@
 //
 #endregion
 
-using SmartGraph.Core.Interfaces;
-using SmartGraph.Dag.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SmartGraph.Core.Interfaces;
+using SmartGraph.Dag.Interfaces;
 
 namespace SmartGraph.Core
 {
-    internal class EngineCore : MarshalByRefObject, IEngine, IDisposable
+    internal class EngineCore : IEngine, IDisposable
     {
-        private readonly Object firstLoadSyncRoot = new Object();
+        private readonly object firstLoadSyncRoot = new object();
         private int countOfFirstLoadsOutstanding;
         private bool allFirstLoadsDone;
 
-        private readonly String engineName;
+        private readonly string engineName;
         private readonly IGraph engineGraph;
         private readonly IEnginePipeline enginePipeline;
-        private readonly IDictionary<String, EngineNode> engineNodeMap;
+        private readonly IDictionary<string, EngineNode> engineNodeMap;
 
         private bool CanExecute(IEngineTask task)
         {
@@ -62,27 +62,27 @@ namespace SmartGraph.Core
             Execute(new DefaultEngineTask(this, engineNode));
         }
 
-        internal EngineCore(String name, IEngineBuilder builder, IEnginePipeline pipeline)
+        internal EngineCore(string name, IEngineBuilder builder, IEnginePipeline pipeline)
         {
             engineName = name;
             Builder = builder;
             engineGraph = builder.CreateGraph();
             enginePipeline = pipeline;
-            engineNodeMap = new Dictionary<String, EngineNode>();
+            engineNodeMap = new Dictionary<string, EngineNode>();
             countOfFirstLoadsOutstanding = 0;
             allFirstLoadsDone = false;
 
             EngineCounters.Create();
         }
 
-        public String Name
+        public string Name
         {
             get { return engineName; }
         }
 
         public IGraph Graph { get { return engineGraph; } }
 
-        public IEngineNode this[String nodeName]
+        public IEngineNode this[string nodeName]
         {
             get { return engineNodeMap[nodeName]; }
         }

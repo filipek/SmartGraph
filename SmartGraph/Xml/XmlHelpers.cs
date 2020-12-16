@@ -21,42 +21,41 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
-using System.Xml.XPath;
 
 namespace SmartGraph.Xml
 {
-	/// <summary>
-	/// Summary description for XmlHelpers.
-	/// </summary>
-	public static class XmlHelpers
+    /// <summary>
+    /// Summary description for XmlHelpers.
+    /// </summary>
+    public static class XmlHelpers
 	{
-		public static Object Deserialize(Type type, Stream xml)
+		public static object Deserialize(Type type, Stream xml)
 		{
             var s = new XmlSerializer(type);
 			return s.Deserialize( xml );
 		}
 
-		public static Object Deserialize(Type type, Stream xml, String ns)
+		public static object Deserialize(Type type, Stream xml, string ns)
 		{
             var s = new XmlSerializer(type, ns);
 			return s.Deserialize( xml );
 		}
 
-		public static Object Deserialize(Type type, String xml)
+		public static object Deserialize(Type type, string xml)
 		{
             var ms = new MemoryStream(Encoding.UTF8.GetBytes(xml), false);
 			ms.Position = 0;
 			return Deserialize( type, ms );
 		}
 
-		public static Object Deserialize(Type type, String xml, String ns)
+		public static object Deserialize(Type type, string xml, string ns)
 		{
             var ms = new MemoryStream(Encoding.UTF8.GetBytes(xml), false);
 			ms.Position = 0;
 			return Deserialize( type, ms, ns );
 		}
 
-		public static Object Deserialize(Type type, XmlReader xml, String ns)
+		public static object Deserialize(Type type, XmlReader xml, string ns)
 		{
             var s = new XmlSerializer(type, ns);
 			return s.Deserialize( xml );

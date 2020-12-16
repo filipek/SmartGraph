@@ -36,8 +36,8 @@ namespace SmartGraph.RandomGraphGenerator.Formats
             foreach (var ie in vertex.InEdges)
             {
                 xmlWriter.WriteStartElement("e", "input", XmlEngineBuilder.EngineNamespace);
-                xmlWriter.WriteAttributeString("name", String.Format("input-{0}", ++inputId));
-                xmlWriter.WriteAttributeString("ref", String.Format("node-{0}", ie.Source.Name));
+                xmlWriter.WriteAttributeString("name", string.Format("input-{0}", ++inputId));
+                xmlWriter.WriteAttributeString("ref", string.Format("node-{0}", ie.Source.Name));
                 xmlWriter.WriteEndElement(); // input
             }
             xmlWriter.WriteEndElement(); // inputs
@@ -71,7 +71,7 @@ namespace SmartGraph.RandomGraphGenerator.Formats
 
                     if (v.InEdges.Any() && v.OutEdges.Any()) // calculated node
                     {
-                        xmlWriter.WriteAttributeString("name", String.Format("node-{0}", v.Name));
+                        xmlWriter.WriteAttributeString("name", string.Format("node-{0}", v.Name));
 
                         WriteInputs(xmlWriter, v);
 
@@ -87,7 +87,7 @@ namespace SmartGraph.RandomGraphGenerator.Formats
                     }
                     else if (v.OutEdges.None()) // publisher
                     {
-                        xmlWriter.WriteAttributeString("name", String.Format("node-{0}-publisher", v.Name));
+                        xmlWriter.WriteAttributeString("name", string.Format("node-{0}-publisher", v.Name));
 
                         WriteInputs(xmlWriter, v);
 
@@ -103,7 +103,7 @@ namespace SmartGraph.RandomGraphGenerator.Formats
                     }
                     else if (v.InEdges.None()) // active node
                     {
-                        xmlWriter.WriteAttributeString("name", String.Format("node-{0}", v.Name));
+                        xmlWriter.WriteAttributeString("name", string.Format("node-{0}", v.Name));
 
                         xmlWriter.WriteStartElement("e", "obj", ens);
                         xmlWriter.WriteAttributeString(
@@ -122,7 +122,7 @@ namespace SmartGraph.RandomGraphGenerator.Formats
                     else
                     {
                         throw new InvalidOperationException(
-                            String.Format("Vertex '{0}' is of unknown type.", v.Name));
+                            string.Format("Vertex '{0}' is of unknown type.", v.Name));
                     }
 
                     xmlWriter.WriteEndElement(); // node

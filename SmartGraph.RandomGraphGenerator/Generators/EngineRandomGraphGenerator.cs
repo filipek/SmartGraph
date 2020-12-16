@@ -32,7 +32,7 @@ namespace SmartGraph.RandomGraphGenerator.Generators
             generator = new RandomGraphGenerator();
         }
 
-        public IGraph Generate(String graphName)
+        public IGraph Generate(string graphName)
         {
             var graph = new DagGraph(graphName);
             var vertices = graph.Vertices.ToArray();
@@ -63,7 +63,7 @@ namespace SmartGraph.RandomGraphGenerator.Generators
             Action<int> createNode =
                 v => graph.Vertices.Add(new Vertex(graph, v.ToString()));
             Action<int, int> createEdge =
-                (s, t) => graph.Edges.Add(new Edge(graph, String.Format("{0}-{1}", s, t), s.ToString(), t.ToString()));
+                (s, t) => graph.Edges.Add(new Edge(graph, string.Format("{0}-{1}", s, t), s.ToString(), t.ToString()));
 
             generator.Generate(null, endGraph, createEdge, createNode);
 
