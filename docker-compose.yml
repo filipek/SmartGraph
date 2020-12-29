@@ -1,0 +1,12 @@
+﻿version: '3'
+
+services:
+
+  bus:
+    image: rabbitmq:management
+    environment:
+      - RABBITMQ_DEFAULT_USER=smartgraph
+      - RABBITMQ_DEFAULT_PASS=1t1sn0s3cr3t
+    ports:
+      - 5672:5672
+      - 15672:15672
