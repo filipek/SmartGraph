@@ -3,6 +3,9 @@
     "SmartGraph.TestApp": {
       "commandName": "Project",
       "commandLineArgs": "TickerTester"
+    },
+    "Docker": {
+      "commandName": "Docker"
     }
   }
 }

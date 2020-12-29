@@ -17,19 +17,29 @@
 #endregion
 
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace SmartGraph.TestApp
 {
     class Program
     {
-        private static async Task Main(string[] args)
+        private static async Task Main(string[] args)   
         {
             await Host.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    if (args != null)
+                        config.AddCommandLine(args);
+                })
                 .ConfigureServices((context, services) =>
                 {
                     services.AddHostedService<SmartGraphService>();
+                }).ConfigureLogging((hostingContext, logging) =>
+                {
+                    logging.AddConsole();
                 })
                 .RunConsoleAsync();
         }
