@@ -48,8 +48,6 @@ namespace SmartGraph.Core
         public void EndMeasurementCapture()
         {
             stopWatch.Stop();
-
-            EngineCounters.UpdateTaskTime(stopWatch.ElapsedMilliseconds);
         }
 
         public IEngineNode DirtyNode { get; private set; }
@@ -61,8 +59,6 @@ namespace SmartGraph.Core
             {
                 throw new InvalidOperationException("Null or empty calculation order.");
             }
-
-            EngineCounters.UpdateCalculatedNodeCount(CalculationOrder.Count);
 
             var updateOrder = new List<string>();
 

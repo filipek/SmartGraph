@@ -126,8 +126,6 @@ namespace SmartGraph.Core.Policies
                 isInitialized = true;
             }
 
-            EngineCounters.RemoveDirtyNodeEvent();
-
             SendNext(task);
         }
 	}

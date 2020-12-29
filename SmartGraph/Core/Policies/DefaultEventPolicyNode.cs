@@ -43,7 +43,6 @@ namespace SmartGraph.Core.Policies
 
         public override void Produce(IEngineTask message)
 		{
-            EngineCounters.AddDirtyNodeEvent();
 			SendNext(message);
 		}
 	}

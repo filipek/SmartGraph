@@ -21,7 +21,7 @@ using SmartGraph.Pipeline.Interfaces;
 
 namespace SmartGraph.Pipeline
 {
-    public class SimpleMessageBus<T> : IMessageBus<T>
+    public class SimpleMessageBus<TMessage> : IMessageBus<TMessage>
     {
         /// <summary>
         /// Represents a blocking thread-safe collection which enforces the FIFO order
@@ -32,19 +32,19 @@ namespace SmartGraph.Pipeline
             public MessageQueue() : base(new ConcurrentQueue<T>()) { }
         }
 
-        private readonly MessageQueue<T> messageQueue;
+        private readonly MessageQueue<TMessage> messageQueue;
 
         public SimpleMessageBus()
         {
-            messageQueue = new MessageQueue<T>();
+            messageQueue = new MessageQueue<TMessage>();
         }
 
-        public T Consume()
+        public TMessage Consume()
         {
             return messageQueue.Take();
         }
 
-        public void Produce(T message)
+        public void Produce(TMessage message)
         {
             messageQueue.Add(message);
         }

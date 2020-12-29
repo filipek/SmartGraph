@@ -71,8 +71,6 @@ namespace SmartGraph.Core
             engineNodeMap = new Dictionary<string, EngineNode>();
             countOfFirstLoadsOutstanding = 0;
             allFirstLoadsDone = false;
-
-            EngineCounters.Create();
         }
 
         public string Name
@@ -102,8 +100,6 @@ namespace SmartGraph.Core
 
         public void Bind()
         {
-            EngineCounters.Initialize();
-
             foreach (var vertex in engineGraph.Vertices)
             {
                 var node = Builder.CreateNode(vertex);
@@ -125,8 +121,6 @@ namespace SmartGraph.Core
 
         public void Start()
         {
-            EngineCounters.Reset();
-
             // Back to front.
             enginePipeline.Nodes.Reverse().ForEach(p => p.Start());
         }
@@ -139,7 +133,6 @@ namespace SmartGraph.Core
 
         public void Dispose()
         {
-            EngineCounters.Dispose();
         }
     }
 }
